@@ -1,0 +1,3 @@
+"model","term","weighted","unweighted","supplied_bootstrap_mean","supplied_bootstrap_sd","supplied_draws","used_draws"
+"T3_1","samecaste",0.131679118322361,0.158902114728389,0.15701817,0.0325257217619828,1000,250
+"T4_1","samecaste",0.170695788792623,0.198639495020329,0.2022282168,0.0407448877530137,1000,250

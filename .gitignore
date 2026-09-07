@@ -1,0 +1,12 @@
+.R/
+.Rhistory
+.RData
+.Rproj.user/
+.DS_Store
+output/*.rds
+output/*.log
+sources/*.pdf
+sources/*.txt
+sources/code/
+data/original/**/reverse_bridewanted_AEJ.dta
+data/original/**/reverse_groomwanted_AEJ.dta

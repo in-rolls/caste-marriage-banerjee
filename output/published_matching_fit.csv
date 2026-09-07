@@ -1,0 +1,22 @@
+"statistic","simulated","lower","upper","observed","observed_lower","observed_upper","observed_point_in_simulation_interval","intervals_overlap"
+"Age difference",5.9,5.55,6.34,5.7,5.35,6.05,TRUE,TRUE
+"Age correlation",0.88,0.8,0.92,0.65,0.57,0.73,FALSE,FALSE
+"Height difference",0.11,0.11,0.12,0.12,0.11,0.13,TRUE,TRUE
+"Height correlation",0.86,0.81,0.9,0.39,0.29,0.49,FALSE,FALSE
+"Same caste",0.93,0.83,0.99,0.69,0.64,0.75,FALSE,FALSE
+"Caste difference",0.21,-0.02,0.64,0.01,-0.14,0.16,TRUE,TRUE
+"Caste correlation",0.85,0.5,1,0.76,0.69,0.83,TRUE,TRUE
+"Same education",0.56,0.23,0.79,0.44,0.38,0.5,TRUE,TRUE
+"Education difference",-0.25,-0.5,0,0.29,0.14,0.44,FALSE,FALSE
+"Education correlation",0.39,0.18,0.57,0.36,0.24,0.47,TRUE,TRUE
+"Same family origin",1,0.99,1,0.76,0.71,0.82,FALSE,FALSE
+"Family origin difference",0,0,0.01,0.04,-0.02,0.11,FALSE,TRUE
+"Family origin correlation",1,0.98,1,0.51,0.39,0.64,FALSE,FALSE
+"Same residence",0.77,0.3,1,0.48,0.38,0.58,TRUE,TRUE
+"Location correlation",0.24,-0.25,0.98,-0.06,-0.22,0.21,TRUE,TRUE
+"Log wage difference",-0.33,-0.55,-0.12,0.25,0.13,0.36,FALSE,FALSE
+"Log wage correlation",0.13,-0.21,0.43,0.19,-0.13,0.5,TRUE,TRUE
+"Income difference",20855,-10000,115501,28374,-16,56764,TRUE,TRUE
+"Income correlation",0.29,-1,1,0.45,0.08,0.81,TRUE,TRUE
+"Quality difference",0.14,0.13,0.15,0.12,0.11,0.13,FALSE,TRUE
+"Quality correlation",0.27,0.1,0.44,0.2,0.07,0.32,TRUE,TRUE
