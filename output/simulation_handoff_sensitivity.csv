@@ -1,0 +1,3 @@
+"draw","scenario","men","women","same_caste","same_residence","same_origin","height_correlation","proposals","blocking_pairs","elapsed_seconds"
+0,"weighted_handoff",8038,14172,0.936741544022721,0.488888888888889,0.997780468119451,0.858330825003344,4389098,0,122.591
+0,"no_caste_weighted_handoff",8038,14172,0.188701298701299,0.25,0.99981224183252,0.929355447767701,11692453,0,106.102

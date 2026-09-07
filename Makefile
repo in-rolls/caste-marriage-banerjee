@@ -1,6 +1,6 @@
 R := R_LIBS_USER=$(CURDIR)/.R/library Rscript
 
-.PHONY: run replicate diagnostics report test lint format deps
+.PHONY: run replicate diagnostics report interpretation simulation simulation-report simulation-weighting simulation-weighting-report simulation-handoff simulation-handoff-report simulation-test test lint format deps
 
 run: replicate
 	$(R) src/robustness.R
@@ -19,12 +19,50 @@ diagnostics:
 	$(R) src/diagnostics.R
 	$(R) src/structural_checks.R
 
-report:
+interpretation:
+	$(R) src/tradeoff_interpretation.R
+	$(R) src/resource_heterogeneity.R
+	$(R) src/us_benchmarks.R
+	$(R) -e 'knitr::knit("ms/tradeoff-interpretation.Rmd", output = "ms/tradeoff-interpretation.md", quiet = TRUE)'
+
+simulation:
+	$(R) src/simulation_sensitivity.R
+	$(MAKE) simulation-report
+
+simulation-report:
+	$(R) src/simulation_interview_crosswalk.R
+	$(R) src/simulation_summarize.R
+	SIMULATION_ANALYSIS=weighting $(R) src/simulation_summarize.R
+	SIMULATION_ANALYSIS=handoff $(R) src/simulation_summarize.R
+	$(R) -e 'knitr::knit("ms/simulation-audit.Rmd", output = "ms/simulation-audit.md", quiet = TRUE)'
+
+simulation-weighting:
+	$(R) src/simulation_weighting.R
+	$(MAKE) simulation-weighting-report
+
+simulation-weighting-report:
+	$(R) src/simulation_interview_crosswalk.R
+	SIMULATION_ANALYSIS=weighting $(R) src/simulation_summarize.R
+
+simulation-handoff:
+	$(R) src/simulation_handoff.R
+	$(MAKE) simulation-handoff-report
+
+simulation-handoff-report:
+	$(R) src/simulation_interview_crosswalk.R
+	SIMULATION_ANALYSIS=handoff $(R) src/simulation_summarize.R
+
+simulation-test:
+	$(R) src/simulation_coefficients.R
+	$(R) tests/test_simulation.R
+
+report: interpretation
 	$(R) src/figures.R
 	$(R) -e 'knitr::knit("README.Rmd", output = "README.md", quiet = TRUE)'
 
-test:
+test: simulation-test
 	$(R) tests/test_replication.R
+	$(R) tests/test_interpretation.R
 
 lint:
 	$(R) -e 'x <- lintr::lint_dir("src"); y <- lintr::lint_dir("tests"); print(c(x,y)); stopifnot(length(x) + length(y) == 0L)'

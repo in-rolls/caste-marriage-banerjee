@@ -1,0 +1,110 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_knit$set(root.dir = normalizePath(".."))
+```
+
+```{r values, include=FALSE}
+income_summary <- read.csv("output/income_bootstrap_summary.csv")
+outside_premium <- income_summary[income_summary$statistic == "outside_premium", ]
+inside_discount <- income_summary[income_summary$statistic == "inside_discount", ]
+caste_comparisons <- read.csv("output/lower_caste_income_contrasts.csv")
+shortlist_baselines <- read.csv("output/shortlist_baselines.csv")
+education_contrasts <- read.csv("output/education_tradeoff_contrasts.csv")
+background_counts <- read.csv("output/economic_background_counts.csv")
+resource_estimates <- read.csv("output/resource_heterogeneity.csv")
+income_distribution <- read.csv("output/prospective_groom_income_distribution.csv")
+fisman_comparisons <- read.csv("output/us_fisman_comparison.csv")
+hitsch_comparisons <- read.csv("output/us_hitsch_comparison.csv")
+resource_value <- function(statistic, column = "estimate") {
+  resource_estimates[resource_estimates$statistic == statistic, column]
+}
+percent <- function(value) sprintf("%.1f", 100 * value)
+rupees <- function(value) format(round(value), big.mark = ",", scientific = FALSE, trim = TRUE)
+illustrative_income <- 10000
+```
+
+**The paper's striking claim is that a family looking for a groom would give up about a third of his predicted income to keep the match within caste.** That is what its simplified shortlisting model implies. It does not show that families actually married someone earning a third less.
+
+In the reproduced model, an otherwise comparable outside-caste groom needs `r percent(outside_premium$estimate)`% more predicted income to offset the same-caste term. The 95% bootstrap interval is `r percent(outside_premium$lower)`–`r percent(outside_premium$upper)`%. For an illustrative same-caste groom with predicted monthly income of ₹`r rupees(illustrative_income)`, the outside-caste equivalent is ₹`r rupees(illustrative_income * (1 + outside_premium$estimate))`. The corresponding interval is ₹`r rupees(illustrative_income * (1 + outside_premium$lower))`–₹`r rupees(illustrative_income * (1 + outside_premium$upper))`. The ₹10,000 starting point is chosen to make the comparison concrete; it is not the sample mean. Expressed as a discount from the outside option, the same-caste groom can earn `r percent(inside_discount$estimate)`% less, with an interval of `r percent(inside_discount$lower)`–`r percent(inside_discount$upper)`%.
+
+This reproduces the paper's approximately 50% outside-caste premium on p. 56, Table 3's limited specification. Income is monthly: the appendix's data description converts reported earnings to monthly amounts (p. 3). The model predicts log income from education and occupation, then substitutes that predictor for the separate income, education, and occupation controls. The conversion therefore measures a tradeoff against an estimated package of economic attributes. It is not an experiment offering families extra cash. Our 1,999 advertiser bootstrap draws repeat both estimation stages. [Generated income estimates](../output/income_bootstrap_summary.csv).
+
+**Avoiding a lower caste has no single price in these results.** The headline ratio isolates the same-caste term. A comparison between particular castes must also include the groom's caste category, rank distance, and the family's stated preference. For a Brahmin family that did not state a caste preference, holding other included attributes fixed:
+
+```{r caste-table, results='asis'}
+selected_comparisons <- caste_comparisons[
+  caste_comparisons$advertiser_caste == "Brahmin" &
+    caste_comparisons$stated_preference == "reference" &
+    caste_comparisons$alternative_groom_caste %in% c("Baidya", "Kayastha"), ]
+comparison_table <- data.frame(
+  `Outside groom` = selected_comparisons$alternative_groom_caste,
+  `Extra predicted income` = paste0(percent(selected_comparisons$outside_income_premium), "%"),
+  `95% interval` = paste0(percent(selected_comparisons$premium_lower), "% to ",
+    percent(selected_comparisons$premium_upper), "%"),
+  `Equivalent to a same-caste groom earning ₹10,000/month` = paste0("₹",
+    rupees(illustrative_income * (1 + selected_comparisons$outside_income_premium))),
+  check.names = FALSE
+)
+cat(knitr::kable(comparison_table, format = "pipe"), sep = "\n")
+```
+
+The Baidya estimate is small and uncertain; its interval permits a preference for the Baidya groom without extra income. The Kayastha estimate is much larger. Both groups are below Brahmin in the paper's coding, but they are not interchangeable alternatives. These estimates concern families seeking grooms, not a reproduced income tradeoff for men seeking brides. Our attempted reproduction of the simplified bride-income model remains unresolved, so it cannot supply a reliable second money figure. [Complete caste contrasts](../output/lower_caste_income_contrasts.csv).
+
+**The shortlisting association is substantial on its own scale.** Here are the actual weighted shortlist rates in the reproduced baseline samples:
+
+```{r baseline-table, results='asis'}
+baseline_table <- data.frame(
+  Search = c("Groom", "Bride"),
+  Letters = shortlist_baselines$letters,
+  Advertisers = shortlist_baselines$advertisers,
+  `Average shortlisted` = paste0(percent(shortlist_baselines$shortlist_rate), "%"),
+  `Same-caste coefficient` = paste0(percent(shortlist_baselines$same_caste_coefficient), " percentage points"),
+  check.names = FALSE
+)
+cat(knitr::kable(baseline_table, format = "pipe"), sep = "\n")
+```
+
+Thus the groom-search coefficient is about `r percent(shortlist_baselines$same_caste_coefficient[1] / shortlist_baselines$shortlist_rate[1])`% of that sample's average shortlist rate; the bride-search coefficient is about `r percent(shortlist_baselines$same_caste_coefficient[2] / shortlist_baselines$shortlist_rate[2])`%. These comparisons give scale. The averages include both same- and outside-caste letters; they are not estimated outside-caste probabilities, so those ratios are not causal percentage increases. The coefficients describe the reference group with no stated caste preference, and the model allows different associations for families that explicitly requested same-caste partners or said caste was no bar. [Computed baselines](../output/shortlist_baselines.csv).
+
+An education comparison makes the groom-search result more tangible. For a woman with a bachelor's degree, the baseline model values a prospective groom's upgrade from bachelor's to master's at `r percent(education_contrasts$estimate[2])` percentage points of consideration probability. This includes the model's same-education and male-more-educated terms. The same-caste coefficient is `r percent(education_contrasts$estimate[1])` points. The two are close: a same-caste bachelor's graduate scores `r percent(education_contrasts$estimate[3])` points relative to an outside-caste master's graduate, with a 95% advertiser-clustered interval of `r percent(education_contrasts$lower[3])` to `r percent(education_contrasts$upper[3])` points. This comparison holds other attributes fixed, takes no stated caste preference, and compares castes within the same broad rank so that separate caste-category and rank terms cancel. It describes nearly equal fitted consideration, not a proven indifference for every family. [Education contrasts](../output/education_tradeoff_contrasts.csv), paper Table 3, pp. 53–54.
+
+**A large willingness to sacrifice and a small realized sacrifice can coexist.** A family may strongly prefer same-caste partners while finding one with similar earnings and education. The authors' matching model formalizes this idea: if the distributions of desirable attributes and available men and women are sufficiently balanced across caste groups, endogamy need not force large economic concessions. The empirical question is whether this model correctly describes the available partners and matches. Its fit and uncertain cost estimates need their own assessment; the shortlisting income ratio cannot establish a large realized marriage loss, and the simulation cannot erase a strong shortlisting preference. See the separate [review](review.md).
+
+These are mostly Bengali, educated, upper-middle-class families responding to a newspaper marriage market in 2002–03. About 85% of prospective spouses had at least a bachelor's degree. Parents, uncles, or older brothers usually managed the search and interview. The observed decision is whether to pursue a received letter (paper pp. 46–48).
+
+**Do richer families care less about the groom's income?** This is testable imperfectly. The interview asks respondents to classify their economic background as upper, middle, or lower. It is not a measured household-income or net-worth variable.
+
+```{r background-table, results='asis'}
+cat(knitr::kable(background_counts, format = "pipe", col.names = c(
+  "Self-described background", "All advertisers", "Groom-search advertisers", "Groom-search letters"
+)), sep = "\n")
+```
+
+The new exploratory model adds upper-background interactions with the same-caste term and predicted log income to the original limited specification. It keeps the other slopes common and retains advertiser fixed effects and the original weights. A 10% increase in the groom's predicted income raises fitted consideration by `r percent(resource_value("upper_income") * log(1.1))` percentage points among upper-background families, versus `r percent(resource_value("middle_lower_income") * log(1.1))` points among the combined middle/lower group. Their income-slope difference is `r sprintf("%.3f", resource_value("income_difference"))`, with a 95% bootstrap interval of `r sprintf("%.3f", resource_value("income_difference", "lower"))` to `r sprintf("%.3f", resource_value("income_difference", "upper"))`. This does not establish weaker responsiveness to proportional income changes among upper-background families. It is not a test of equal valuation of an extra rupee. The log-income specification already makes a fixed cash increment matter less at a higher income level, and it imposes a constant percentage income premium within each background group.
+
+The estimated outside-caste income premium is `r percent(resource_value("upper_premium"))`% for upper-background families and `r percent(resource_value("middle_lower_premium"))`% for the combined middle/lower group. Their difference is `r percent(resource_value("premium_difference"))` percentage points, with an interval from `r percent(resource_value("premium_difference", "lower"))` to `r percent(resource_value("premium_difference", "upper"))` points. We test that difference directly. Both income slopes remain positive in every one of the 1,999 bootstrap samples, each of which re-estimates the income predictor and preference regression. The point estimates permit a smaller caste premium in the upper group, but the uncertainty does not establish a difference. There are only 22 lower-background families seeking grooms, so pooling them with the middle group cannot establish the preferences of poor households. [Exploratory estimates](../output/resource_heterogeneity.csv), [bootstrap draws](../output/resource_heterogeneity_draws.csv).
+
+The fitted income index describes prospective grooms, not the searching family's resources. Among sampled letters, its monthly medians are:
+
+```{r income-distribution, results='asis'}
+cat(knitr::kable(data.frame(
+  Background = income_distribution$family_background,
+  `Median prospective-groom income index` = paste0("₹", rupees(income_distribution$median)),
+  `Middle half of sampled letters` = paste0("₹", rupees(income_distribution$q25), "–₹",
+    rupees(income_distribution$q75)), check.names = FALSE
+), format = "pipe"), sep = "\n")
+```
+
+These are unweighted distributions of the sampled letter records, which deliberately overrepresent considered letters. They are not household-income distributions or earnings estimates for all possible partners. The ₹10,000 illustrative starting point above is near the overall fitted median; its compensating alternative remains within the overall fitted support. The interview income field is labeled income of the ad-placer, with 247 zeros, 23 missing values, and 513 positive values. The supplied label does not identify total household income or distinguish a genuine zero from every possible nonreporting convention. We therefore do not use it to classify families as rich or poor. The occupation-linked `pce` field is an NSS consumption proxy, not measured spending by these families. Asset codes are insufficiently documented for an assumed wealth index.
+
+**What the authors say about compatibility is more qualified than “pure prejudice.”** Section III.D, “What Does Caste Signal?” (pp. 59–60), asks whether caste signals background or culture. The authors report robustness to recorded cultural attributes such as singing ability, restricting to the four highest castes, and distinguishing broad caste from narrower caste membership. They also compare observable characteristics and subsequent spouse characteristics of people who contact partners outside caste (Table 5). Their stated interpretation is a strong preference for caste itself.
+
+But p. 60 expressly acknowledges unobserved characteristics shared within narrower caste groups and says the setting cannot decompose why such matching is attractive. Their checks address recorded cultural attributes and selected signaling explanations; they do not establish a pure aversion to caste labels. Footnote 18 (p. 52) says adding family wealth descriptions, “cultured,” and astrology leaves estimates similar, without displaying those expanded regressions. In the archive's ads, letters, and interview variable names and labels, we found no measure of vegetarianism, meat consumption, or dietary compatibility. Main regressions include family origin in East/West Bengal and residence, but not a dietary match. The study excluded ads under Christian and Muslim headings (p. 45); that restriction is not a detailed measure of religious practice.
+
+Diet is consequently an untested possible mechanism, not a demonstrated explanation for the coefficient. We cannot infer a particular person's diet from their caste. A direct test would collect both partners' actual practices, their willingness to accommodate different practices, and anticipated family objections, then compare within- and between-caste choices among otherwise compatible pairs. Merely adding a crude dietary indicator need not remove expectations about many other aspects of shared life. If compatibility explains the association, the observed shortlisting tradeoff can remain large while its interpretation changes from a price on the caste label to a price on the bundle of things families associate with it.
+
+**US results give useful scale, not a universal standard.** Fisman and coauthors studied 412 Columbia graduate/professional students in 17 speed-dating sessions during 2002–04. White women said yes in 33% of their 1,765 decisions. Controlling for attractiveness and decision-maker fixed effects, their advantage for a White partner was 12.3 percentage points over Black men, 9.2 over Hispanic men, and 7.5 over Asian men. Approximate 95% intervals from the published partner-clustered SEs are 3.7–20.9, 3.1–15.3, and 2.2–12.8 points. White men's corresponding estimates are near zero or negative, with all intervals including zero. Thus a 13-point initial-contact association is not unprecedented in a selected US sample; neither study estimates national preferences or cash sacrificed in completed marriages. [Fisman et al. (2008), Tables 1, 3, and 7, pp. 122, 124, 127](https://sites.bu.edu/fisman/files/2015/11/RES08-racial_preferences.pdf), [transcribed estimates](../output/us_fisman_comparison.csv).
+
+Hitsch, Hortaçsu, and Ariely's US online-dating model gives White women's contact odds for otherwise comparable White men as `r sprintf("%.2f", hitsch_comparisons$white_partner_odds_ratio[1])` times those for Black men, `r sprintf("%.2f", hitsch_comparisons$white_partner_odds_ratio[2])` times those for Hispanic men, and `r sprintf("%.2f", hitsch_comparisons$white_partner_odds_ratio[3])` times those for Asian men. These are odds ratios, not probability ratios or percentage points. The model includes same religion, income, education, appearance, and other attributes. Among within-sample interactions, women sent a first-contact email after 8.2% of browses; that descriptive sample differs from the estimation choice sample. Its nonlinear income specification includes income brackets and squared differences from own income: dividing a race coefficient by one income slope would manufacture an incomplete dollar tradeoff. We do not report that shortcut. [Hitsch et al. (2010), Tables 3–4, pp. 146–149](https://www.tau.ac.il/~weiss/fam_econ/Matching%20and%20Sorting%20in%20Online%20Dating%20-%20Hitsch.pdf), [computed odds ratios](../output/us_hitsch_comparison.csv).
+
+To regenerate this note from the completed replication outputs, run `Rscript src/tradeoff_interpretation.R`, `Rscript src/resource_heterogeneity.R`, and `Rscript src/us_benchmarks.R`, then `Rscript -e 'knitr::knit("ms/tradeoff-interpretation.Rmd", output = "ms/tradeoff-interpretation.md", quiet = TRUE)'` from the repository root.

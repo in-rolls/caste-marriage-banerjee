@@ -27,7 +27,7 @@ which letters to pursue, not observations of a spouse knowingly accepting a mone
 | Does that establish WTP to avoid lower castes? | No. The full comparison also includes the prospective groom's caste, relative rank, and the advertiser's stated preferences. [Computed comparisons](output/lower_caste_income_contrasts.csv). |
 | Does the matching model establish negligible costs? | The published uncertainty intervals allow substantial costs, and baseline simulated endogamy is 93% versus 69% in observed marriages. |
 | Does the supplied simulation use the headline regressions? | Its coefficient bootstrap omits the weights used for the main tables. |
-| Are there concrete code problems? | The male preference calculation miscoded same residence for 1,678,947 candidate pairs; the quality index drops education terms through an operator-precedence error. Their effects on equilibrium outcomes have not been established. |
+| Are there concrete code problems? | The male preference calculation miscoded same residence for 1,678,947 candidate pairs; the quality index drops education terms through an operator-precedence error. An independent review also confirms caste-rank and missing-attribute feature errors. Ten complete-market allocations quantify the consequences; the selected corrections do not explain away the model's high endogamy. [Simulation audit](ms/simulation-audit.md). |
 
 The general 49% income premium corresponds to accepting about 33% less income for the same-caste
 option, not losing 49%. This is a regression conversion for the reference group, not a universal
@@ -62,3 +62,7 @@ Original code and data carry the archive's [license](data/original/LICENSE.txt).
 The downloaded article and appendix are reading copies and are not redistributed here.
 
 [Research and writing opportunities arising from the review](ms/research-opportunities.md).
+
+The [tradeoff interpretation](ms/tradeoff-interpretation.md) translates the preference estimates into income and education comparisons and examines family resources and cultural explanations.
+
+Selected complete-market sensitivity runs and their limits are documented in the [simulation audit](ms/simulation-audit.md). The [independent feature review](ms/simulation-feature-review.md) traces the confirmed handoff errors to the original programs. `make simulation`, `make simulation-weighting`, and the additional targets documented in that audit reproduce the separate simulation comparisons; `make test` runs the local validation suite.

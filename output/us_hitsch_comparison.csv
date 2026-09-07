@@ -1,0 +1,7 @@
+"decision_maker","alternative_partner","alternative_log_odds","published_standard_error","white_partner_odds_ratio","lower","upper","source"
+"White woman","Black",-0.743,0.1195,2.10223276218645,1.66326793693001,2.65704790448085,"https://www.tau.ac.il/~weiss/fam_econ/Matching%20and%20Sorting%20in%20Online%20Dating%20-%20Hitsch.pdf"
+"White woman","Hispanic",-0.5752,0.0897,1.7774859885644,1.4909167967746,2.11913665898581,"https://www.tau.ac.il/~weiss/fam_econ/Matching%20and%20Sorting%20in%20Online%20Dating%20-%20Hitsch.pdf"
+"White woman","Asian",-1.5952,0.2408,4.9293148365067,3.0748025029802,7.90234323468077,"https://www.tau.ac.il/~weiss/fam_econ/Matching%20and%20Sorting%20in%20Online%20Dating%20-%20Hitsch.pdf"
+"White man","Black",-0.8301,0.0861,2.29354808360518,1.93740045126111,2.71516547257171,"https://www.tau.ac.il/~weiss/fam_econ/Matching%20and%20Sorting%20in%20Online%20Dating%20-%20Hitsch.pdf"
+"White man","Hispanic",-0.2821,0.0367,1.32591130448791,1.23388696619192,1.42479889612139,"https://www.tau.ac.il/~weiss/fam_econ/Matching%20and%20Sorting%20in%20Online%20Dating%20-%20Hitsch.pdf"
+"White man","Asian",-0.4952,0.0436,1.64082637151701,1.50643445464414,1.787207649935,"https://www.tau.ac.il/~weiss/fam_econ/Matching%20and%20Sorting%20in%20Online%20Dating%20-%20Hitsch.pdf"

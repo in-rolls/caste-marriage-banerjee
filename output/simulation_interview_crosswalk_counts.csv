@@ -1,0 +1,9 @@
+"Var1","Var2","Freq"
+"female","ambiguous_interview_identifier",3
+"male","ambiguous_interview_identifier",1
+"female","interview_sex_disagreement",3
+"male","interview_sex_disagreement",6
+"female","no_interview_identifier",13689
+"male","no_interview_identifier",7772
+"female","verified_identifier_and_attributes",477
+"male","verified_identifier_and_attributes",259

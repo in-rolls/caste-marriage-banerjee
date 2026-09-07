@@ -1,0 +1,7 @@
+"decision_maker","alternative_partner","white_partner_advantage","published_standard_error","observations","overall_yes_rate","lower","upper","source"
+"White woman","Black",0.123,0.044,1765,0.33,0.0367615846802377,0.209238415319762,"https://sites.bu.edu/fisman/files/2015/11/RES08-racial_preferences.pdf"
+"White woman","Hispanic",0.092,0.031,1765,0.33,0.0312411164792583,0.152758883520742,"https://sites.bu.edu/fisman/files/2015/11/RES08-racial_preferences.pdf"
+"White woman","Asian",0.075,0.027,1765,0.33,0.0220809724174186,0.127919027582581,"https://sites.bu.edu/fisman/files/2015/11/RES08-racial_preferences.pdf"
+"White man","Black",-0.004,0.046,2070,0.46,-0.0941583432888425,0.0861583432888424,"https://sites.bu.edu/fisman/files/2015/11/RES08-racial_preferences.pdf"
+"White man","Hispanic",-0.013,0.029,2070,0.46,-0.0698389555516616,0.0438389555516616,"https://sites.bu.edu/fisman/files/2015/11/RES08-racial_preferences.pdf"
+"White man","Asian",-0.051,0.034,2070,0.46,-0.117638775474362,0.0156387754743618,"https://sites.bu.edu/fisman/files/2015/11/RES08-racial_preferences.pdf"
