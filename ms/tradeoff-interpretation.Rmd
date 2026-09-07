@@ -48,7 +48,7 @@ comparison_table <- data.frame(
 cat(knitr::kable(comparison_table, format = "pipe"), sep = "\n")
 ```
 
-The Baidya estimate is small and uncertain; its interval permits a preference for the Baidya groom without extra income. The Kayastha estimate is much larger. Both groups are below Brahmin in the paper's coding, but they are not interchangeable alternatives. These estimates concern families seeking grooms, not a reproduced income tradeoff for men seeking brides. Our attempted reproduction of the simplified bride-income model remains unresolved, so it cannot supply a reliable second money figure. [Complete caste contrasts](../output/lower_caste_income_contrasts.csv).
+The Baidya estimate is small and uncertain; its interval permits a preference for the Baidya groom without extra income. The Kayastha estimate is much larger. Both groups are below Brahmin in the paper's coding, but they are not interchangeable alternatives. These estimates concern families seeking grooms, not a reproduced income tradeoff for men seeking brides. The simplified bride-income point estimates now reproduce, but some income predictions depend on restrictions the earnings observations cannot identify. It therefore cannot supply a reliable second money figure. See the [bride-income audit](bride-income-audit.md). [Complete caste contrasts](../output/lower_caste_income_contrasts.csv).
 
 **The shortlisting association is substantial on its own scale.** Here are the actual weighted shortlist rates in the reproduced baseline samples:
 

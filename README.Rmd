@@ -57,9 +57,8 @@ bootstraps, code diagnostics, and this README. The original files remain unchang
 
 **Coverage:** This is a reproduction of the main preference evidence and an audit of the structural
 claims, not a complete rerun of every published table. The 250 full-market Matlab simulation draws,
-Bayesian Figure 1, and all auxiliary appendix regressions have not been rerun. The simplified
-bride-income specification currently differs from the published column and produces a
-rank-deficient prediction warning; it is not used for reported WTP. See [coverage and limitations](ms/review.md).
+Bayesian Figure 1, and all auxiliary appendix regressions have not been rerun. The simplified bride-income point estimates now reproduce, but some income predictions
+depend on restrictions the earnings data cannot identify; this specification is not used for reported WTP. See [coverage and limitations](ms/review.md).
 
 The original [114406 replication archive](https://www.openicpsr.org/openicpsr/project/114406/version/V1/view)
 contains two reverse-search datasets larger than GitHub's individual-file limit. They remain in the
@@ -72,3 +71,7 @@ The downloaded article and appendix are reading copies and are not redistributed
 The [tradeoff interpretation](ms/tradeoff-interpretation.md) translates the preference estimates into income and education comparisons and examines family resources and cultural explanations.
 
 Selected complete-market sensitivity runs and their limits are documented in the [simulation audit](ms/simulation-audit.md). The [independent feature review](ms/simulation-feature-review.md) traces the confirmed handoff errors to the original programs. `make simulation`, `make simulation-weighting`, and the additional targets documented in that audit reproduce the separate simulation comparisons; `make test` runs the local validation suite.
+
+The [bride-income audit](ms/bride-income-audit.md) resolves the numerical discrepancy and demonstrates the unsupported income extrapolations. The [conditional matching-cost audit](ms/simulation-costs.md) reconstructs the cost regressions on selected saved allocations and reports sparse or unidentified comparisons. [Independent agy audit and adjudication](ms/independent-audit.md).
+
+For the full paired sensitivity across the first 250 supplied coefficient draws, run `Rscript src/simulation_batch.R --workers=2 --draws=1:250 --scenarios=original,feature_corrected`. The runner saves a separate checkpoint for every validated allocation under `output/simulation_runs/`, resumes matching checkpoints, and stops if its input or source hashes change. This uses the original unweighted coefficient draws. Its manifest and status files distinguish completed work from a partial run; it does not reproduce a weighted coefficient bootstrap or certify native Matlab equivalence.

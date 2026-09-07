@@ -15,7 +15,7 @@ This reproduces the paper's approximately 50% outside-caste premium on p. 56, Ta
 |Baidya        |6.3%                   |-22.4% to 49.9% |₹10,628                                                |
 |Kayastha      |63.4%                  |30.9% to 107.8% |₹16,337                                                |
 
-The Baidya estimate is small and uncertain; its interval permits a preference for the Baidya groom without extra income. The Kayastha estimate is much larger. Both groups are below Brahmin in the paper's coding, but they are not interchangeable alternatives. These estimates concern families seeking grooms, not a reproduced income tradeoff for men seeking brides. Our attempted reproduction of the simplified bride-income model remains unresolved, so it cannot supply a reliable second money figure. [Complete caste contrasts](../output/lower_caste_income_contrasts.csv).
+The Baidya estimate is small and uncertain; its interval permits a preference for the Baidya groom without extra income. The Kayastha estimate is much larger. Both groups are below Brahmin in the paper's coding, but they are not interchangeable alternatives. These estimates concern families seeking grooms, not a reproduced income tradeoff for men seeking brides. The simplified bride-income point estimates now reproduce, but some income predictions depend on restrictions the earnings observations cannot identify. It therefore cannot supply a reliable second money figure. See the [bride-income audit](bride-income-audit.md). [Complete caste contrasts](../output/lower_caste_income_contrasts.csv).
 
 **The shortlisting association is substantial on its own scale.** Here are the actual weighted shortlist rates in the reproduced baseline samples:
 

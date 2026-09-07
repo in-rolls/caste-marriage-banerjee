@@ -1,0 +1,13 @@
+# Independent agy audit and adjudication
+
+The user requested an agy audit. It inspected both replication repositories, local papers, original programs, our source and tests, and saved outputs. Its [full response](agy-audit-raw.md) is retained verbatim. It used file-reading tools, did not execute computations, and reviewed marriage commit `09ecc2b` before the new bride-income and conditional-cost extensions. Raw audit statements are not automatically accepted findings.
+
+The audit confirms the weight omission, residence and caste-rank/missing-attribute discrepancies, the quality-index precedence problem, the importance of reporting-sample definitions, and the wide published cost intervals. It agrees that selected corrections do not explain away high simulated endogamy. That conclusion is supported for the tested draws and point estimates, not for an unexecuted distribution of 250 weighted corrected draws.
+
+We reject stronger claims in its summary. It has not established that the model's fit failure is an inherent consequence of frictionless matching; preferences, market composition, omitted compatibility, search, and other modeling assumptions could contribute. Wide cost intervals undermine an inference of negligible cost but do not establish that true costs are large. Sparse support provides a concrete concern; its consequences must be computed rather than inferred from the same-caste match rate alone.
+
+The audit also repeats the paper's description of a lower-caste reference group. Our subsequent source-based conditional-cost reconstruction shows that some different-subcaste/equal-rank pairs enter that reference. Selected income cells can contain only two comparison couples. That new finding is documented separately in [simulation-costs.md](simulation-costs.md), including unidentified cells and exact reporting populations.
+
+For water, the audit proposed a numerical explanation of45%:850.936/1891.613≈44.985%. The units would be incompatible if that were the authors' calculation, but no producing code verifies it. We reject its presentation as a confirmed dimensional error. We also reject interpreting disagreement between percentile and studentized IV intervals as proof that the IV estimate is biased. The wells README now gives both intervals equal prominence; its detailed review already did so.
+
+The new [bride-income audit](bride-income-audit.md) was completed after agy's baseline inspection. It resolves the numerical discrepancy but demonstrates that some predicted incomes—and the income conversion—depend on restrictions the earnings data cannot identify. This distinction is more informative than either declaring a failed reproduction or accepting a monetary trade-off because one normalization matches the publication.

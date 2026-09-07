@@ -1,0 +1,16 @@
+"quantity","value"
+"main_letters",3944
+"main_advertisers",277
+"reported_income_flag_letters",84
+"earnings_training_letters",83
+"earnings_training_advertisers",62
+"first_stage_columns",14
+"first_stage_rank",11
+"supported_predictions",3829
+"unsupported_predictions",115
+"post_secondary_affected",16
+"other_field_affected",39
+"education_intercept_affected",80
+"author_export_unique_profiles",3925
+"author_export_maximum_covariate_difference",5.79833985270284e-08
+"author_export_maximum_income_difference",9.02865222585092e-07

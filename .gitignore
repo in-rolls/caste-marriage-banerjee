@@ -10,3 +10,4 @@ sources/*.txt
 sources/code/
 data/original/**/reverse_bridewanted_AEJ.dta
 data/original/**/reverse_groomwanted_AEJ.dta
+output/simulation_runs/

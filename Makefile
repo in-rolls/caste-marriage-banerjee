@@ -1,10 +1,11 @@
 R := R_LIBS_USER=$(CURDIR)/.R/library Rscript
 
-.PHONY: run replicate diagnostics report interpretation simulation simulation-report simulation-weighting simulation-weighting-report simulation-handoff simulation-handoff-report simulation-test test lint format deps
+.PHONY: run replicate diagnostics report interpretation simulation simulation-report simulation-weighting simulation-weighting-report simulation-handoff simulation-handoff-report simulation-test test lint format deps simulation-costs
 
 run: replicate
 	$(R) src/robustness.R
 	$(R) src/diagnostics.R
+	$(R) src/bride_income_audit.R
 	$(R) src/income_uncertainty.R
 	$(R) src/income_contrasts.R
 	$(R) src/structural_checks.R
@@ -17,6 +18,7 @@ replicate:
 
 diagnostics:
 	$(R) src/diagnostics.R
+	$(R) src/bride_income_audit.R
 	$(R) src/structural_checks.R
 
 interpretation:
@@ -63,6 +65,9 @@ report: interpretation
 test: simulation-test
 	$(R) tests/test_replication.R
 	$(R) tests/test_interpretation.R
+	$(R) tests/test_bride_income.R
+	$(R) tests/test_simulation_costs.R
+	$(R) tests/test_simulation_batch.R
 
 lint:
 	$(R) -e 'x <- lintr::lint_dir("src"); y <- lintr::lint_dir("tests"); print(c(x,y)); stopifnot(length(x) + length(y) == 0L)'
@@ -73,3 +78,7 @@ format:
 deps:
 	@mkdir -p .R/library
 	$(R) -e 'if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv", repos = "https://cloud.r-project.org"); renv::restore(library = ".R/library", prompt = FALSE)'
+
+simulation-costs:
+	$(R) src/simulation_costs.R
+	$(R) -e 'knitr::knit("ms/simulation-costs.Rmd", output="ms/simulation-costs.md", quiet=TRUE)'
