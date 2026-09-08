@@ -1,6 +1,6 @@
 R := R_LIBS_USER=$(CURDIR)/.R/library Rscript
 
-.PHONY: caste-benchmarks paper-versions run replicate diagnostics report interpretation simulation simulation-report simulation-weighting simulation-weighting-report simulation-handoff simulation-handoff-report simulation-test test lint format deps simulation-costs simulation-batch-costs simulation-batch-summary simulation-income
+.PHONY: education-capacity caste-benchmarks paper-versions run replicate diagnostics report interpretation simulation simulation-report simulation-weighting simulation-weighting-report simulation-handoff simulation-handoff-report simulation-test test lint format deps simulation-costs simulation-batch-costs simulation-batch-summary simulation-income
 
 run: replicate
 	$(R) src/robustness.R
@@ -108,3 +108,6 @@ paper-versions:
 
 caste-benchmarks:
 	$(R) src/caste_matching_benchmarks.R
+
+education-capacity:
+	$(R) src/education_capacity.R

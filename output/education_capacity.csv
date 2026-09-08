@@ -1,0 +1,4 @@
+"scenario","source_men","source_women","men","women","couples","same_education_couples","same_education_share","unmatched_men","unmatched_women"
+"unrestricted",8038,14172,6040,12558,6040,5713,0.945860927152318,0,6518
+"within_caste",8038,14172,6040,12558,6036,5664,0.938369781312127,4,6522
+"within_caste_typo_corrected",8038,14172,6040,12558,6036,5664,0.938369781312127,4,6522

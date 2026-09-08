@@ -22,6 +22,11 @@ about **20% same-caste matching** (Table 7), using a broader market of advertise
 answer different questions and use different pools. None identifies a causal effect of caste prejudice.
 [Benchmark calculation and limits](ms/review.md#observed-marriages-and-matching-benchmarks).
 
+A [direct education-capacity calculation](ms/review.md#educational-matching-possible-within-caste)
+also asks how many same-education couples the pool could support within caste, without using
+shortlisting coefficients. It reports achievable matches and how many people remain unmatched; it is a
+feasibility bound, not a prediction of what families choose. Reproduce with `make education-capacity`.
+
 The central same-caste shortlisting association reproduces and survives several inference and weighting checks.
 The larger claim that caste preferences impose little economic cost relies on a matching model whose
 fit, code, and interpretation need separate scrutiny. [Read the review](ms/review.md).
