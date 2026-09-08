@@ -6,6 +6,10 @@
 output/*.rds
 output/*.log
 sources/*.pdf
+!sources/paper.pdf
+!sources/appendix.pdf
+!sources/paper_2009_nber.pdf
+!sources/paper_2010_11.pdf
 sources/*.txt
 sources/code/
 data/original/**/reverse_bridewanted_AEJ.dta

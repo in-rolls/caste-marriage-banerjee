@@ -1,0 +1,64 @@
+"version","source","statistic","lower","upper","observed","observed_lower","observed_upper","point_inside","intervals_overlap"
+"nber_2009","sources/paper_2009_nber.pdf","Age difference",5.3394,6.2323,5.6993,5.3476,6.051,TRUE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Age correlation",0.799,0.9242,0.6521,0.57,0.7341,FALSE,FALSE
+"nber_2009","sources/paper_2009_nber.pdf","Height difference",0.1043,0.1235,0.1237,0.1146,0.1328,FALSE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Height correlation",0.8108,0.9085,0.388,0.2875,0.4886,FALSE,FALSE
+"nber_2009","sources/paper_2009_nber.pdf","Same caste",0.8682,0.9732,0.6937,0.6396,0.7478,FALSE,FALSE
+"nber_2009","sources/paper_2009_nber.pdf","Caste difference",0.0444,0.4856,-0.0071,-0.1584,0.1443,FALSE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Caste correlation",0.6536,0.96,0.7599,0.6873,0.8324,TRUE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Same education",0.2529,0.7882,0.438,0.3778,0.4982,TRUE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Education difference",-0.5093,0.0084,0.2902,0.1393,0.441,FALSE,FALSE
+"nber_2009","sources/paper_2009_nber.pdf","Education correlation",0.2368,0.6001,0.3564,0.2383,0.4746,TRUE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Same family origin",0.9898,1,0.7644,0.706,0.8229,FALSE,FALSE
+"nber_2009","sources/paper_2009_nber.pdf","Family origin difference",-0.0047,0.0092,0.0433,-0.0208,0.1073,FALSE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Family origin correlation",0.9769,1,0.5147,0.3932,0.6361,FALSE,FALSE
+"nber_2009","sources/paper_2009_nber.pdf","Same residence",0,1,0.4831,0.3834,0.5829,TRUE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Location correlation",-1,0.4891,-0.0566,-0.2246,0.2142,TRUE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Log wage difference",-0.499,-0.0826,0.2462,0.1349,0.3575,FALSE,FALSE
+"nber_2009","sources/paper_2009_nber.pdf","Log wage correlation",-0.167,0.4222,0.1855,-0.1284,0.4993,TRUE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Income difference",-11375,10300,28374,-16,56764,FALSE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Income correlation",-0.6231,1,0.4474,0.0837,0.811,TRUE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Quality difference",0.1299,0.1554,0.1202,0.1069,0.1336,FALSE,TRUE
+"nber_2009","sources/paper_2009_nber.pdf","Quality correlation",0.0941,0.464,0.195,0.0714,0.3187,TRUE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Age difference",5.3394,6.2323,5.6993,5.3476,6.051,TRUE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Age correlation",0.799,0.9242,0.6521,0.57,0.7341,FALSE,FALSE
+"november_2010","sources/paper_2010_11.pdf","Height difference",0.1043,0.1235,0.1237,0.1146,0.1328,FALSE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Height correlation",0.8108,0.9085,0.388,0.2875,0.4886,FALSE,FALSE
+"november_2010","sources/paper_2010_11.pdf","Same caste",0.8682,0.9732,0.6937,0.6396,0.7478,FALSE,FALSE
+"november_2010","sources/paper_2010_11.pdf","Caste difference",-0.4856,0.0444,0.0071,-0.1443,0.1584,TRUE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Caste correlation",0.6536,0.96,0.7599,0.6873,0.8324,TRUE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Same education",0.2529,0.7882,0.438,0.3778,0.4982,TRUE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Education difference",-0.5093,0.0084,0.2902,0.1393,0.441,FALSE,FALSE
+"november_2010","sources/paper_2010_11.pdf","Education correlation",0.2368,0.6001,0.3564,0.2383,0.4746,TRUE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Same family origin",0.9898,1,0.7644,0.706,0.8229,FALSE,FALSE
+"november_2010","sources/paper_2010_11.pdf","Family origin difference",-0.0047,0.0092,0.0433,-0.0208,0.1073,FALSE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Family origin correlation",0.9769,1,0.5147,0.3932,0.6361,FALSE,FALSE
+"november_2010","sources/paper_2010_11.pdf","Same residence",0,1,0.4831,0.3834,0.5829,TRUE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Location correlation",-1,0.4891,-0.0566,-0.2246,0.2142,TRUE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Log wage difference",-0.499,-0.0826,0.2462,0.1349,0.3575,FALSE,FALSE
+"november_2010","sources/paper_2010_11.pdf","Log wage correlation",-0.167,0.4222,0.1855,-0.1284,0.4993,TRUE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Income difference",-11375,10300,28374,-16,56764,FALSE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Income correlation",-0.6231,1,0.4474,0.0837,0.811,TRUE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Quality difference",0.1299,0.1554,0.1202,0.1069,0.1336,FALSE,TRUE
+"november_2010","sources/paper_2010_11.pdf","Quality correlation",0.0941,0.464,0.195,0.0714,0.3187,TRUE,TRUE
+"final_2013","sources/paper.pdf","Age difference",5.55,6.34,5.7,5.35,6.05,TRUE,TRUE
+"final_2013","sources/paper.pdf","Age correlation",0.8,0.92,0.65,0.57,0.73,FALSE,FALSE
+"final_2013","sources/paper.pdf","Height difference",0.11,0.12,0.12,0.11,0.13,TRUE,TRUE
+"final_2013","sources/paper.pdf","Height correlation",0.81,0.9,0.39,0.29,0.49,FALSE,FALSE
+"final_2013","sources/paper.pdf","Same caste",0.83,0.99,0.69,0.64,0.75,FALSE,FALSE
+"final_2013","sources/paper.pdf","Caste difference",-0.02,0.64,0.01,-0.14,0.16,TRUE,TRUE
+"final_2013","sources/paper.pdf","Caste correlation",0.5,1,0.76,0.69,0.83,TRUE,TRUE
+"final_2013","sources/paper.pdf","Same education",0.23,0.79,0.44,0.38,0.5,TRUE,TRUE
+"final_2013","sources/paper.pdf","Education difference",-0.5,0,0.29,0.14,0.44,FALSE,FALSE
+"final_2013","sources/paper.pdf","Education correlation",0.18,0.57,0.36,0.24,0.47,TRUE,TRUE
+"final_2013","sources/paper.pdf","Same family origin",0.99,1,0.76,0.71,0.82,FALSE,FALSE
+"final_2013","sources/paper.pdf","Family origin difference",0,0.01,0.04,-0.02,0.11,FALSE,TRUE
+"final_2013","sources/paper.pdf","Family origin correlation",0.98,1,0.51,0.39,0.64,FALSE,FALSE
+"final_2013","sources/paper.pdf","Same residence",0.3,1,0.48,0.38,0.58,TRUE,TRUE
+"final_2013","sources/paper.pdf","Location correlation",-0.25,0.98,-0.06,-0.22,0.21,TRUE,TRUE
+"final_2013","sources/paper.pdf","Log wage difference",-0.55,-0.12,0.25,0.13,0.36,FALSE,FALSE
+"final_2013","sources/paper.pdf","Log wage correlation",-0.21,0.43,0.19,-0.13,0.5,TRUE,TRUE
+"final_2013","sources/paper.pdf","Income difference",-10000,115501,28374,-16,56764,TRUE,TRUE
+"final_2013","sources/paper.pdf","Income correlation",-1,1,0.45,0.08,0.81,TRUE,TRUE
+"final_2013","sources/paper.pdf","Quality difference",0.13,0.15,0.12,0.11,0.13,FALSE,TRUE
+"final_2013","sources/paper.pdf","Quality correlation",0.1,0.44,0.2,0.07,0.32,TRUE,TRUE
