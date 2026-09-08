@@ -4,7 +4,33 @@
 
 
 
-We completed ten allocations of the full market of 8,038 men and 14,172 women. Each contains 8,038 distinct couples and zero blocking pairs under its computed preferences. The first four scenarios use **the first supplied coefficient draw**: original code, corrected residence feature, caste preferences removed, and both changes together. These comparisons hold the people and coefficients fixed. They are a correction sensitivity, not a reproduction of the paper's average over 250 draws or its sampling uncertainty. The original coefficient draw remains unweighted. A separate weighted/unweighted point-estimate comparison follows below.
+## The full paired coding comparison
+
+
+
+The expanded run contains **250 paired draws (500 allocations)** of the complete market. Each pair holds the 8,038 men, 14,172 women, and supplied preference-coefficient draw fixed. The corrected allocation repairs the residence feature and the confirmed bride-side caste-rank and missing-age/height features. It does not remove caste preferences or repair the evaluation-only quality index as part of matching. All saved allocations pass both matching and independent blocking-pair checks.
+
+The original full-market average same-caste share is **91.95%**, versus **89.62%** after correction: a change of **-2.33 percentage points**. The 2.5th and 97.5th percentiles of the **paired differences** are -8.51 and 0.77 points. Corrections reduce the share in 83.60% of the supplied draws. These percentiles describe variation across the supplied, unweighted coefficient draws with market composition and matching assumptions fixed. They are not a confidence interval covering every source of uncertainty or a causal estimate of removing caste preferences.
+
+On men whose caste comparison can be classified in both allocations, the average change is -2.30 points. The common-sample comparison keeps the same men in both denominators. Additional saved results fix women married in both allocations, restrict to verified interview participants, distinguish broad caste from the original reporting definition, and separate men by their recorded caste rank.
+
+
+|Population                |Coding            | Draws|Mean same caste |2.5th percentile |97.5th percentile |
+|:-------------------------|:-----------------|-----:|:---------------|:----------------|:-----------------|
+|full market               |feature corrected |   250|89.62%          |72.64%           |98.56%            |
+|full market               |original          |   250|91.95%          |79.14%           |99.05%            |
+|verified interview subset |feature corrected |   250|89.88%          |74.06%           |99.04%            |
+|verified interview subset |original          |   250|92.39%          |80.42%           |99.42%            |
+
+The reconstructed interview population remains incomplete: 736 of 783 participants were linked, and its matched membership can change across allocations. Neither its average nor the full-market average is an exact reproduction of the paper's 93% versus 69% comparison. The corrections leave substantial predicted endogamy. On average, 77.70% of men's partners change, showing that the modest aggregate shift does not imply that the same people remain paired.
+
+This is a **coding sensitivity**, not an estimate of income sacrificed for caste. The [income comparison](simulation-costs.md) separately follows the same women across allocations with and without caste terms, reports missing-income coverage, and separates gains from losses.
+
+Run `make simulation-batch-summary RUN_DIRECTORY=output/simulation_runs/<run_hash>` to rebuild these summaries from validated checkpoints. The exported provenance identifies the run, completed pairs, coefficient weighting, and source hashes. The following sections retain the earlier selected comparisons so that individual repairs and weighting changes can be examined separately.
+
+## Earlier selected allocations
+
+The earlier checks completed ten allocations of the full market of 8,038 men and 14,172 women. Each contains 8,038 distinct couples and zero blocking pairs under its computed preferences. The first four scenarios use **the first supplied coefficient draw**: original code, corrected residence feature, caste preferences removed, and both changes together. These comparisons hold the people and coefficients fixed. They are a correction sensitivity, not a reproduction of the paper's average over 250 draws or its sampling uncertainty. The original coefficient draw remains unweighted. A separate weighted/unweighted point-estimate comparison follows below.
 
 The implementation uses R with a compiled ranking and matching kernel. It preserves complete preference lists, men proposing, the original mean-rank ordering of men before resolving women's ties, and single-precision feature storage. Native Matlab has not been run, so bit-for-bit agreement in floating-point scoring remains unverified. Independent R tests check the features, tie ordering, known matching examples, and randomly generated small markets.
 
@@ -42,7 +68,7 @@ The paper reports moments for couples containing an original interview participa
 |no caste original            |             552|18.87%     |71.72%         |                  145|
 |no caste residence corrected |             553|18.66%     |48.32%         |                  149|
 
-Consequently, these values cannot replace the published 93% versus 69% comparison. They show how the correction behaves in the verified portion of the relevant sample. The next discriminating checks are more coefficient draws, the remaining identifier conflicts, native scoring equivalence, uncertainty under the weighted coefficient handoff, and the paper's stochastic search-friction assumptions.
+Consequently, these values cannot replace the published 93% versus 69% comparison. They show how the correction behaves in the verified portion of the relevant sample. The full paired coding comparison is reported above. Remaining checks concern identifier conflicts, native scoring equivalence, uncertainty under the weighted coefficient handoff, and the paper's stochastic search-friction assumptions.
 
 Run `make simulation` for the default first draw and `make simulation-test` for the independent tests. Set `SIMULATION_DRAWS=1,2,3` to run a specified set of draws; outputs describe only that set. `make simulation-report` rebuilds summaries and this note from saved allocations.
 

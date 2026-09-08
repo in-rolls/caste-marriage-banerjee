@@ -1,0 +1,2 @@
+"configuration_hash","completed_allocations","requested_allocations","completed_pairs","complete","coefficient_weighting","summary_sha256","crosswalk_sha256","generated_utc","uncertainty"
+"cca1c20fa65c2ead24f87c1fb8e6606d373caa6639621381596b0bf20279b2fa",500,500,250,TRUE,"supplied_unweighted_bootstrap","d62e73c82b73197a9112ee449f5fb899781cbbcb9c950a698d0bfca83a6b28f6","8fff8ba8b42ea8bf76da1ff3e19a7b1730c322013e3572a156e4803b572c2879","2026-09-08 01:13:07 UTC","2.5/97.5 percentiles across supplied coefficient draws, fixed people and matching assumptions"

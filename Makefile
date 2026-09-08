@@ -1,6 +1,6 @@
 R := R_LIBS_USER=$(CURDIR)/.R/library Rscript
 
-.PHONY: run replicate diagnostics report interpretation simulation simulation-report simulation-weighting simulation-weighting-report simulation-handoff simulation-handoff-report simulation-test test lint format deps simulation-costs simulation-batch-costs
+.PHONY: run replicate diagnostics report interpretation simulation simulation-report simulation-weighting simulation-weighting-report simulation-handoff simulation-handoff-report simulation-test test lint format deps simulation-costs simulation-batch-costs simulation-batch-summary simulation-income
 
 run: replicate
 	$(R) src/robustness.R
@@ -72,6 +72,7 @@ test: simulation-test
 	$(R) tests/test_simulation_costs.R
 	$(R) tests/test_simulation_batch.R
 	$(R) tests/test_simulation_batch_costs.R
+	$(R) tests/test_simulation_batch_summary.R
 
 lint:
 	$(R) -e 'x <- lintr::lint_dir("src"); y <- lintr::lint_dir("tests"); print(c(x,y)); stopifnot(length(x) + length(y) == 0L)'
@@ -90,3 +91,14 @@ simulation-costs:
 simulation-batch-costs:
 	@test -n "$(RUN_DIRECTORY)" || (echo "Set RUN_DIRECTORY to a simulation run directory"; exit 1)
 	$(R) src/simulation_batch_costs.R "$(RUN_DIRECTORY)"
+	cp "$(RUN_DIRECTORY)/table8/simulation_batch_cost_summary.csv" output/
+	cp "$(RUN_DIRECTORY)/table8/simulation_batch_cost_provenance.csv" output/
+
+simulation-batch-summary:
+	@test -n "$(RUN_DIRECTORY)" || (echo "Set RUN_DIRECTORY to a simulation run directory"; exit 1)
+	$(R) src/simulation_batch_summary.R "$(RUN_DIRECTORY)"
+
+simulation-income:
+	$(R) src/simulation_income_sacrifice.R
+	$(R) src/simulation_income_bootstrap.R
+	$(R) src/simulation_income_mar.R

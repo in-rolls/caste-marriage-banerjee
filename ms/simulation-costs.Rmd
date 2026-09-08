@@ -1,9 +1,113 @@
-# What do the conditional caste-cost regressions identify?
+# How much income do families sacrifice for caste?
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 knitr::opts_knit$set(root.dir = normalizePath(".."))
 ```
+
+Under a missing-at-random assumption, the corrected, weighted matching model implies a small average husband-income concession. This is consistent with strong caste preferences coexisting with small realized income differences in the model. The calculations below separate that result from shortlisting willingness to sacrifice and from the financial effects of caste in actual marriages.
+
+## Assuming missing incomes are missing at random
+
+```{r mar_values, include=FALSE}
+mar_summary <- read.csv("output/simulation_income_mar_summary.csv")
+mar_provenance <- read.csv("output/simulation_income_mar_provenance.csv")
+mar_main <- subset(mar_summary, comparison == "weighted_all_repairs" & specification == "pmm_log_income")
+mar_all <- subset(mar_main, population == "all_common_women")
+mar_same <- subset(mar_main, population == "same_caste_before")
+mar_levels <- subset(mar_summary, comparison == "weighted_all_repairs" & specification == "pmm_income_levels" & population == "same_caste_before")
+mar_money <- function(x) format(round(x), big.mark = ",", trim = TRUE)
+```
+
+For women assigned a same-caste husband in the corrected, weighted baseline, removing caste preferences raises husband income by **₹`r mar_money(mar_same$net_income_gain)` per month on average**, about **`r sprintf("%.1f", 100 * mar_same$foregone_income_share)`%** of the counterfactual income. The income-level sensitivity gives ₹`r mar_money(mar_levels$net_income_gain)` per month. Across all women married in both allocations, the corresponding log-income imputation estimate is ₹`r mar_money(mar_all$net_income_gain)` per month: essentially no net gain. These numbers are much smaller than the roughly one-third shortlisting trade-off. That is economically coherent: a family may value caste strongly yet find a same-caste partner without giving up much income.
+
+The assumption is that income reporting is independent of income conditional on the observed predictor profile. We use `r mar_provenance$observed_incomes` reported male incomes to impute the `r mar_provenance$imputed_incomes` missing incomes, using education category, age and age squared, an occupation-based log-wage proxy, caste, residence, family origin, and recorded missing-profile categories. Predictive mean matching uses five observed-income donors and `r mar_provenance$imputations_per_specification` imputations per specification. We compare log-income and income-level prediction. The imputation model has full column rank in the observed-income sample. A man's imputed income is identical wherever he appears across the two marriage allocations; recorded incomes are preserved. Only income is imputed, and all predictor entries are observed codes, so one iteration suffices for each independent imputation.
+
+```{r mar_table}
+exhibit <- subset(mar_summary, comparison == "weighted_all_repairs" &
+                    population %in% c("all_common_women", "same_caste_before"))
+exhibit <- exhibit[, c("specification", "population", "n", "net_income_gain", "p025", "p975")]
+exhibit$specification <- gsub("_", " ", exhibit$specification)
+exhibit$population <- gsub("_", " ", exhibit$population)
+for (column in c("net_income_gain", "p025", "p975")) exhibit[[column]] <- paste0("₹", mar_money(exhibit[[column]]))
+names(exhibit) <- c("Imputation", "Women", "N", "Mean income gain without caste", "2.5th percentile", "97.5th percentile")
+knitr::kable(exhibit, row.names = FALSE)
+```
+
+The small mean is not confined to the final coding version. Applying the same log-income MAR procedure to the five saved sensitivity comparisons gives:
+
+```{r mar_coding_sensitivity}
+exhibit <- subset(mar_summary, specification == "pmm_log_income" & population == "same_caste_before")
+exhibit <- exhibit[, c("comparison", "n", "net_income_gain", "foregone_income_share")]
+exhibit$comparison <- gsub("_", " ", exhibit$comparison)
+exhibit$net_income_gain <- paste0("₹", mar_money(exhibit$net_income_gain))
+exhibit$foregone_income_share <- sprintf("%.1f%%", 100 * exhibit$foregone_income_share)
+names(exhibit) <- c("Preference and coding version", "Initially same-caste women", "Mean income gain without caste", "Share of counterfactual income")
+knitr::kable(exhibit, row.names = FALSE)
+```
+
+The supplied comparisons use the first coefficient draw; the other versions use fitted point estimates. They are not a distribution of preference uncertainty. Each row refers to women initially matched within caste and married in both allocations under that version.
+
+The displayed ranges reflect **missing-income imputation uncertainty with preferences, people, and allocations fixed**. They are not full confidence intervals for the economic cost of caste: they exclude uncertainty in preference coefficients, market composition, and the matching assumptions. The small net averages coexist with much larger offsetting increases and decreases. For the initially same-caste group, average gains are ₹`r mar_money(mar_same$gross_gain_per_woman)` per woman and losses ₹`r mar_money(mar_same$gross_loss_per_woman)`, with zeros included for women on the other side of each calculation. Income is only one spouse attribute, so a lower-income counterfactual husband is not proof that relaxing caste makes a family worse off overall.
+
+The data do not reveal a family's actual counterfactual spouse. These calculations maintain the paper's matching framework and treat the imputed incomes as outcomes for saved allocations; they do not feed newly imputed earnings back into search preferences. Everyone's caste terms are removed together. Thus they describe an equilibrium comparison, not how much a single family could obtain by unilaterally relaxing its caste requirement.
+
+The observed-income-only calculation follows below to show how the MAR adjustment changes the estimate. Missingness is an assumption to model here, not an automatic reason to abandon estimation.
+
+## How much income did the same families give up?
+
+The relevant financial comparison is the husband's monthly income for the **same woman**, with and without caste terms in the matching preferences. A positive difference after removing caste means the model assigns her a higher-income husband; a negative difference means a lower-income husband. This is a model counterfactual, not an observed loss, a cash payment, or household profit. It excludes wealth, dowry, transfers, expenses, and the value of other spouse characteristics. Both sides of the market change preferences together, so the result also differs from one family unilaterally relaxing its caste restriction.
+
+```{r income_sacrifice_values, include=FALSE}
+income_sacrifice <- read.csv("output/simulation_income_sacrifice.csv")
+main_income <- subset(income_sacrifice, comparison == "weighted_all_repairs" & population == "all_common_women")
+same_income <- subset(income_sacrifice, comparison == "weighted_all_repairs" & population == "same_caste_before")
+rupees <- function(x) format(round(x), big.mark = ",", trim = TRUE)
+percent <- function(x) sprintf("%.1f%%", 100 * x)
+```
+
+Using the weighted point estimates and all confirmed preference-feature repairs, removing caste terms raises husband income by **₹`r rupees(main_income$net_income_gain)` per month on average** among `r main_income$income_pair_n` women with both husbands' incomes recorded. Their mean husband income changes from ₹`r rupees(main_income$mean_income_with_caste)` to ₹`r rupees(main_income$mean_income_without_caste)`. These `r main_income$income_pair_n` women represent only **`r percent(main_income$income_coverage)` of the `r format(main_income$eligible_n, big.mark = ",")` women married in both allocations**. Without adjustment this is a selected comparison. The MAR analysis above uses all men’s observed predictor profiles to extend the calculation to women with missing husband-income observations.
+
+The net average combines increases and decreases. Husband income rises for `r percent(main_income$gain_share)`, falls for `r percent(main_income$loss_share)`, and is unchanged for `r percent(main_income$unchanged_share)` of the income-observed group. Counting zero for women without a gain, average gains are ₹`r rupees(main_income$gross_gain_per_woman)` per woman; counting zero for women without a loss, average losses are ₹`r rupees(main_income$gross_loss_per_woman)`. Their difference gives the net increase above. The median signed change is ₹`r rupees(main_income$median_income_gain)`. Omitting the single largest absolute change reduces the net mean to ₹`r rupees(main_income$net_without_largest_absolute_change)`; this is a sensitivity check, not a reason to delete that observation.
+
+Among women assigned a same-caste husband before removing caste terms, the corresponding mean increase is ₹`r rupees(same_income$net_income_gain)` per month, based on `r same_income$income_pair_n` income-observed women out of `r same_income$eligible_n`. This is a subgroup defined by the baseline simulation, not actual same-caste marriages in the follow-up data.
+
+The answer changes across coding and weighting versions:
+
+```{r income_sacrifice_table}
+exhibit <- subset(income_sacrifice, population == "all_common_women")
+exhibit <- exhibit[, c("comparison", "income_pair_n", "income_coverage", "net_income_gain")]
+exhibit$comparison <- gsub("_", " ", exhibit$comparison)
+exhibit$income_coverage <- percent(exhibit$income_coverage)
+exhibit$net_income_gain <- paste0("₹", rupees(exhibit$net_income_gain))
+names(exhibit) <- c("Preferences and coding", "Women with both incomes", "Coverage of women married in both", "Mean income gain without caste, monthly")
+knitr::kable(exhibit, row.names = FALSE)
+```
+
+The first two rows use the first supplied coefficient draw; the other three use fitted point estimates. These are selected sensitivity comparisons, not a bootstrap distribution. Differences between rows can also reflect different women having both incomes recorded.
+
+There are `r main_income$women_entering_marriage` women who enter marriage and `r main_income$women_leaving_marriage` who leave marriage when caste terms are removed. The table excludes them; it does not assign a monetary value to remaining single. Since every man is matched in both allocations, reallocating this fixed set of husbands cannot change their total income. That accounting constraint is why a small overall average would not by itself establish a small individual sacrifice. It does not make Table 8's conditional regressions mechanically constant.
+
+## A larger weighted bootstrap needs a supported prediction rule
+
+```{r weighted_bootstrap_support, include=FALSE}
+weighted_support <- read.csv("output/simulation_income_bootstrap_support.csv")
+weighted_omissions <- read.csv("output/simulation_income_bootstrap_omissions.csv")
+paired_support <- aggregate(omitted_n ~ draw, weighted_support, sum)
+```
+
+We generated `r nrow(paired_support)` fresh advertiser-bootstrap draws of both preference regressions, retaining the published letter weights and assigning a new advertiser fixed effect to each sampled copy. This produces `r nrow(weighted_support)` regression fits. In `r sum(weighted_support$omitted_n > 0)` fits, and `r sum(paired_support$omitted_n > 0)` paired draws, at least one requested coefficient is not identified. The omitted terms concern both parties having missing caste information or both having missing age information. These terms are zero throughout the affected estimation samples, but vary across potential partners for some people in the full simulated market.
+
+For example, women with unreported caste can rank `r weighted_omissions$candidates_missing[weighted_omissions$model == "T3_1" & weighted_omissions$term == "samenocaste"][1]` men with unreported caste against `r weighted_omissions$candidates_observed[weighted_omissions$model == "T3_1" & weighted_omissions$term == "samenocaste"][1]` men with recorded caste. When the both-missing term is absent from a bootstrap estimation sample, changing its coefficient leaves every training fitted value unchanged but changes that comparison. It is therefore not merely an irrelevant common intercept.
+
+We retain these coefficients as missing. We have not silently set them to zero, discarded the affected draws, or presented the remaining draws as the full weighted uncertainty distribution. This finding does not invalidate the reproduced shortlisting coefficients or establish a large financial sacrifice. It identifies a prediction rule that must be justified or tested before treating a larger weighted matching run as a well-defined income-cost interval. Options include explicit normalization sensitivity or a separately defined market restricted to supported profiles; either changes the scope of the result and must be reported.
+
+Run `make simulation-income` for the five income comparisons and 250 weighted coefficient resamples. The target also runs the 500-imputation MAR analysis in both income specifications. Monetary comparisons use saved full-market allocations; the separate coefficient-resampling step audits support and does not claim 250 new weighted allocations.
+
+
+## What the published conditional cost regressions estimate
+
+
 
 ```{r values, include=FALSE}
 costs <- read.csv("output/simulation_cost_estimates.csv")
@@ -38,7 +142,7 @@ The corrected weighted allocation gives different answers across reporting popul
 
 ## Some selected contrasts are unidentified
 
-A regression can be rank-deficient because a requested caste indicator has no independent variation after the controls. We check whether each requested coefficient is uniquely determined by the model matrix, rather than treating an omitted or normalized coefficient as a zero cost. Across these selected allocations and the two reporting populations, `r nrow(not_estimable)` published-cell coefficients are not identified. This count concerns the selected runs; it does not establish how often the issue occurs in the full 250 draws.
+A regression can be rank-deficient because a requested caste indicator has no independent variation after the controls. We check whether each requested coefficient is uniquely determined by the model matrix, rather than treating an omitted or normalized coefficient as a zero cost. Across these selected allocations and the two reporting populations, `r nrow(not_estimable)` published-cell coefficients are not identified. This count concerns the earlier selected runs. Frequencies across all 250 supplied draws follow below.
 
 ```{r identification_table}
 exhibit <- not_estimable[, c("scenario", "population", "outcome", "coefficient", "n", "reference_n")]
@@ -51,3 +155,26 @@ Education is measured in ordered categories, age differences in years, and heigh
 This extension does not equate partner reassignment or unchanged total income with the paper's conditional cost estimates. It reconstructs the actual conditional regressions. No uncertainty band from ten selected allocations is presented as the paper's 250-draw interval.
 
 The source-to-coefficient map is saved in `output/simulation_cost_source_map.csv`; all estimates, sample sizes, reference counts, ranks, and identification flags are in `output/simulation_cost_estimates.csv`. Run `Rscript src/simulation_costs.R`, followed by `Rscript tests/test_simulation_costs.R`, to reproduce and test this extension.
+
+
+## Conditional cost regressions across all supplied draws
+
+```{r full_cost_values, include=FALSE}
+full_costs <- read.csv("output/simulation_batch_cost_summary.csv")
+full_cost_provenance <- read.csv("output/simulation_batch_cost_provenance.csv")
+full_income_costs <- subset(full_costs, output_name == "beta_inc_male_long")
+```
+
+The reporting audit now covers all `r full_cost_provenance$completed_allocations` original/corrected allocations, using the 250 supplied unweighted preference draws under each coding version. There were no regression execution errors. Some requested coefficients nevertheless lack independent variation and remain unidentified:
+
+```{r full_cost_table}
+exhibit <- full_income_costs[, c("scenario", "population", "completed_draws", "valid_draws", "unidentified_draws", "n_min", "n_max")]
+exhibit$scenario <- gsub("_", " ", exhibit$scenario)
+exhibit$population <- gsub("_", " ", exhibit$population)
+names(exhibit) <- c("Coding", "Population", "Completed draws", "Identified income coefficients", "Unidentified", "Minimum N", "Maximum N")
+knitr::kable(exhibit, row.names = FALSE)
+```
+
+This table concerns the same-caste coefficient in the paper's conditional groom-income regression. It compares different couples within each allocation. The MAR income analysis above instead follows the same women across allocations with and without caste terms, using weighted point estimates. These are different comparisons; the imputation ranges above do not replace Table 8's preference-draw uncertainty. Full generated coefficient summaries retain identified-draw counts beside their percentiles, rather than treating omitted coefficients as zero or presenting selected finite estimates as the complete published interval.
+
+Run `make simulation-batch-costs RUN_DIRECTORY=output/simulation_runs/<run_hash>` to reproduce the reporting audit and export its summary and provenance. Detailed estimates remain under that run's `table8/` directory.

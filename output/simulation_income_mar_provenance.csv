@@ -1,0 +1,2 @@
+"men","observed_incomes","imputed_incomes","imputations_per_specification","seed","mice_version","source_sha256","men_sha256","allocations_sha256","assumption"
+8038,1729,6309,500,114410,"3.19.0","37829d2049a3645ef5a11e7b446adc77af0cabc0f9714bc203ee6bea268cf7b2","8efb03edcffc11ddd3ce6d54c0fa43cae1e35f3fd4aac16dd55a3bf31b13e1b7","5b2c5810c296f06abf3ee5c5f148597d89593a44672fc044bbb6ce36d3a6b67f","Income missing at random given education, age, occupation, caste, residence, origin and missing-profile categories"

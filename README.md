@@ -27,7 +27,14 @@ which letters to pursue, not observations of a spouse knowingly accepting a mone
 | Does that establish WTP to avoid lower castes? | No. The full comparison also includes the prospective groom's caste, relative rank, and the advertiser's stated preferences. [Computed comparisons](output/lower_caste_income_contrasts.csv). |
 | Does the matching model establish negligible costs? | The published uncertainty intervals allow substantial costs, and baseline simulated endogamy is 93% versus 69% in observed marriages. |
 | Does the supplied simulation use the headline regressions? | Its coefficient bootstrap omits the weights used for the main tables. |
-| Are there concrete code problems? | The male preference calculation miscoded same residence for 1,678,947 candidate pairs; the quality index drops education terms through an operator-precedence error. An independent review also confirms caste-rank and missing-attribute feature errors. Ten complete-market allocations quantify the consequences; the selected corrections do not explain away the model's high endogamy. [Simulation audit](ms/simulation-audit.md). |
+| Are there concrete code problems? | The male preference calculation miscoded same residence for 1,678,947 candidate pairs; the quality index drops education terms through an operator-precedence error. An independent review also confirms caste-rank and missing-attribute feature errors. 250 paired full-market draws quantify the joint preference-feature repairs, alongside ten earlier selected allocations. The corrections leave substantial predicted endogamy. [Simulation audit](ms/simulation-audit.md). |
+
+**How much income does keeping caste cost in the matching model?** Under missing at random, the corrected,
+weighted point-estimate model implies about **₹229 per month (1.0%)**
+foregone among women initially assigned a same-caste husband. This is much smaller than the shortlisting trade-off,
+consistent with strong preferences but small average income concessions in the model. The analysis uses 500 income
+imputations and an income-level sensitivity check. It does not identify actual household profit, and its imputation
+ranges do not include preference or matching-model uncertainty. [Income-sacrifice analysis](ms/simulation-costs.md).
 
 The general 49% income premium corresponds to accepting about 33% less income for the same-caste
 option, not losing 49%. This is a regression conversion for the reference group, not a universal
@@ -50,8 +57,8 @@ the simplified groom-income specification, robustness checks, complete-procedure
 bootstraps, code diagnostics, and this README. The original files remain unchanged.
 
 **Coverage:** This is a reproduction of the main preference evidence and an audit of the structural
-claims, not a complete rerun of every published table. The 250 full-market Matlab simulation draws,
-Bayesian Figure 1, and all auxiliary appendix regressions have not been rerun. The simplified bride-income point estimates now reproduce, but some income predictions
+claims, not a complete rerun of every published table. The R coding sensitivity covers 250 supplied coefficient draws under two feature definitions. Native Matlab equivalence,
+Bayesian Figure 1, and all auxiliary appendix regressions remain unverified. The simplified bride-income point estimates now reproduce, but some income predictions
 depend on restrictions the earnings data cannot identify; this specification is not used for reported WTP. See [coverage and limitations](ms/review.md).
 
 The original [114406 replication archive](https://www.openicpsr.org/openicpsr/project/114406/version/V1/view)
@@ -64,10 +71,14 @@ The downloaded article and appendix are reading copies and are not redistributed
 
 The [tradeoff interpretation](ms/tradeoff-interpretation.md) translates the preference estimates into income and education comparisons and examines family resources and cultural explanations.
 
-Selected complete-market sensitivity runs and their limits are documented in the [simulation audit](ms/simulation-audit.md). The [independent feature review](ms/simulation-feature-review.md) traces the confirmed handoff errors to the original programs. `make simulation`, `make simulation-weighting`, and the additional targets documented in that audit reproduce the separate simulation comparisons; `make test` runs the local validation suite.
+The full paired coding comparison, selected income counterfactuals, and their limits are documented in the [simulation audit](ms/simulation-audit.md). The [independent feature review](ms/simulation-feature-review.md) traces the confirmed handoff errors to the original programs. `make simulation`, `make simulation-weighting`, and the additional targets documented in that audit reproduce the separate simulation comparisons; `make test` runs the local validation suite.
 
 The [groom-income support check](ms/groom-income-support.md) finds no corresponding normalization problem in the model behind the 49% premium. The [bride-income audit](ms/bride-income-audit.md) resolves the numerical discrepancy and demonstrates the unsupported income extrapolations. The [conditional matching-cost audit](ms/simulation-costs.md) reconstructs the cost regressions on selected saved allocations and reports sparse or unidentified comparisons. [Independent agy audit and adjudication](ms/independent-audit.md).
 
 For the full paired sensitivity across the first 250 supplied coefficient draws, run `Rscript src/simulation_batch.R --workers=2 --draws=1:250 --scenarios=original,feature_corrected`. The runner saves a separate checkpoint for every validated allocation under `output/simulation_runs/`, resumes matching checkpoints, and stops if its input or source hashes change. This uses the original unweighted coefficient draws. Its manifest and status files distinguish completed work from a partial run; it does not reproduce a weighted coefficient bootstrap or certify native Matlab equivalence.
 
 Use `make simulation-batch-costs RUN_DIRECTORY=output/simulation_runs/<run_hash>` to summarize completed allocations. Outputs go to that run’s `table8/` directory and report completed, requested, and identified draw counts separately. Partial summaries are provisional; percentiles of identified coefficients do not reproduce the published Table 8 confidence intervals when some requested comparisons cannot be estimated.
+
+`make simulation-batch-summary RUN_DIRECTORY=output/simulation_runs/<run_hash>` exports paired sorting changes,
+common-sample comparisons, and draw percentiles. `make simulation-income` computes the same-woman income comparisons
+on the selected saved allocations, applies 500 MAR imputations in two specifications, and audits 250 fresh weighted coefficient resamples; it does not generate 250 weighted matching allocations.
