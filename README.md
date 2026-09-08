@@ -6,7 +6,21 @@ An R reproduction and review of Banerjee, Duflo, Ghatak, and Lafortune's
 [*Marry for What? Caste and Mate Selection in Modern India*](https://doi.org/10.1257/mic.5.2.33)
 (AEJ: Microeconomics, 2013).
 
-The central same-caste association reproduces and survives several inference and weighting checks.
+**About 69% of observed marriages are same-caste;
+31% cross caste boundaries.** Among the
+284 couples with caste recorded for both partners, 197
+are same-caste and 87 are inter-caste.
+Randomly re-pairing these same husbands and wives gives an expected **19.8% same-caste rate**.
+Inter-caste marriage is therefore a substantial part of this sample, alongside strong caste sorting.
+These are marriages or engagements observed at follow-up in a selected Bengali newspaper marriage market.
+
+Random matching ignores every preference. The paper's caste-agnostic simulation retains estimated
+preferences for education, age, income, and other attributes but removes the caste terms; it predicts
+about **20% same-caste matching** (Table 7), using a broader market of advertisers. The two benchmarks
+answer different questions and use different pools. Neither identifies a causal effect of caste prejudice.
+[Benchmark calculation and limits](ms/review.md#observed-marriages-and-matching-benchmarks).
+
+The central same-caste shortlisting association reproduces and survives several inference and weighting checks.
 The larger claim that caste preferences impose little economic cost relies on a matching model whose
 fit, code, and interpretation need separate scrutiny. [Read the review](ms/review.md).
 

@@ -1,6 +1,6 @@
 R := R_LIBS_USER=$(CURDIR)/.R/library Rscript
 
-.PHONY: paper-versions run replicate diagnostics report interpretation simulation simulation-report simulation-weighting simulation-weighting-report simulation-handoff simulation-handoff-report simulation-test test lint format deps simulation-costs simulation-batch-costs simulation-batch-summary simulation-income
+.PHONY: caste-benchmarks paper-versions run replicate diagnostics report interpretation simulation simulation-report simulation-weighting simulation-weighting-report simulation-handoff simulation-handoff-report simulation-test test lint format deps simulation-costs simulation-batch-costs simulation-batch-summary simulation-income
 
 run: replicate
 	$(R) src/robustness.R
@@ -60,7 +60,7 @@ simulation-test:
 	$(R) src/simulation_coefficients.R
 	$(R) tests/test_simulation.R
 
-report: interpretation
+report: interpretation caste-benchmarks
 	$(R) src/figures.R
 	$(R) -e 'knitr::knit("README.Rmd", output = "README.md", quiet = TRUE)'
 
@@ -105,3 +105,6 @@ simulation-income:
 
 paper-versions:
 	$(R) src/paper_version_checks.R
+
+caste-benchmarks:
+	$(R) src/caste_matching_benchmarks.R

@@ -1,0 +1,4 @@
+"comparison","men","women","source_couples","excluded_missing_caste","same_caste_share","same_caste_couples_observed_or_expected"
+"observed_couples",284,284,289,5,0.693661971830986,197
+"uniform_random_pairing",284,284,289,5,0.198261753620314,56.3063380281693
+"random_pairing_typo_corrected",284,284,289,5,0.198261753620314,56.3063380281693
