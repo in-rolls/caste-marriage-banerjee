@@ -1,6 +1,7 @@
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 caste_benchmarks <- read.csv("output/caste_matching_benchmarks.csv")
+advertiser_benchmark <- read.csv("output/advertiser_caste_benchmark.csv")
 observed_caste <- subset(caste_benchmarks, comparison == "observed_couples")
 random_caste <- subset(caste_benchmarks, comparison == "uniform_random_pairing")
 r <- read.csv("output/robustness.csv")
@@ -25,13 +26,15 @@ An R reproduction and review of Banerjee, Duflo, Ghatak, and Lafortune's
 `r observed_caste$men` couples with caste recorded for both partners, `r observed_caste$same_caste_couples_observed_or_expected`
 are same-caste and `r observed_caste$men - observed_caste$same_caste_couples_observed_or_expected` are inter-caste.
 Randomly re-pairing these same husbands and wives gives an expected **`r num(100 * random_caste$same_caste_share)`% same-caste rate**.
-Inter-caste marriage is therefore a substantial part of this sample, alongside strong caste sorting.
+Using all advertisers with usable caste reports instead gives **`r num(100 * advertiser_benchmark$same_caste_share)`%**.
+Neither benchmark uses West Bengal's population caste shares: each conditions on a selected pool.
+Inter-caste marriage is a substantial part of this sample, alongside strong caste sorting relative to these pools.
 These are marriages or engagements observed at follow-up in a selected Bengali newspaper marriage market.
 
 Random matching ignores every preference. The paper's caste-agnostic simulation retains estimated
 preferences for education, age, income, and other attributes but removes the caste terms; it predicts
-about **20% same-caste matching** (Table 7), using a broader market of advertisers. The two benchmarks
-answer different questions and use different pools. Neither identifies a causal effect of caste prejudice.
+about **20% same-caste matching** (Table 7), using a broader market of advertisers. These benchmarks
+answer different questions and use different pools. None identifies a causal effect of caste prejudice.
 [Benchmark calculation and limits](ms/review.md#observed-marriages-and-matching-benchmarks).
 
 The central same-caste shortlisting association reproduces and survives several inference and weighting checks.
