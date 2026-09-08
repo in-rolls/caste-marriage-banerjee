@@ -8,7 +8,7 @@ Under a missing-at-random assumption, the corrected, weighted matching model imp
 
 
 
-For women assigned a same-caste husband in the corrected, weighted baseline, removing caste preferences raises husband income by **₹229 per month on average**, about **1.0%** of the counterfactual income. The income-level sensitivity gives ₹103 per month. Across all women married in both allocations, the corresponding log-income imputation estimate is ₹-64 per month: essentially no net gain. These numbers are much smaller than the roughly one-third shortlisting trade-off. That is economically coherent: a family may value caste strongly yet find a same-caste partner without giving up much income.
+For women assigned a same-caste husband in the corrected, weighted baseline, removing caste preferences raises husband income by **₹103 per month on average**, about **0.4%** of the counterfactual income. The main imputation predicts income in rupees. Using log income to select comparable donors gives ₹229 per month as a sensitivity check; that result is also an arithmetic income difference in rupees. Across all women married in both allocations, the main estimate is ₹-106 per month: essentially no net gain. These numbers are much smaller than the roughly one-third shortlisting trade-off. That is economically coherent: a family may value caste strongly yet find a same-caste partner without giving up much income.
 
 The assumption is that income reporting is independent of income conditional on the observed predictor profile. We use 1729 reported male incomes to impute the 6309 missing incomes, using education category, age and age squared, an occupation-based log-wage proxy, caste, residence, family origin, and recorded missing-profile categories. Predictive mean matching uses five observed-income donors and 500 imputations per specification. We compare log-income and income-level prediction. The imputation model has full column rank in the observed-income sample. A man's imputed income is identical wherever he appears across the two marriage allocations; recorded incomes are preserved. Only income is imputed, and all predictor entries are observed codes, so one iteration suffices for each independent imputation.
 
@@ -20,20 +20,20 @@ The assumption is that income reporting is independent of income conditional on 
 |pmm income levels |all common women  | 7573|₹-106                          |₹-368            |₹145              |
 |pmm income levels |same caste before | 6992|₹103                           |₹-383            |₹646              |
 
-The small mean is not confined to the final coding version. Applying the same log-income MAR procedure to the five saved sensitivity comparisons gives:
+The small mean is not confined to the final coding version. Applying the same income-level MAR procedure to the five saved sensitivity comparisons gives:
 
 
 |Preference and coding version | Initially same-caste women|Mean income gain without caste |Share of counterfactual income |
 |:-----------------------------|--------------------------:|:------------------------------|:------------------------------|
-|supplied original             |                       6405|₹736                           |3.1%                           |
-|supplied residence repaired   |                       6409|₹685                           |2.8%                           |
-|unweighted residence repaired |                       6889|₹159                           |0.7%                           |
-|weighted residence repaired   |                       6837|₹-23                           |-0.1%                          |
-|weighted all repairs          |                       6992|₹229                           |1.0%                           |
+|supplied original             |                       6405|₹602                           |2.5%                           |
+|supplied residence repaired   |                       6409|₹522                           |2.2%                           |
+|unweighted residence repaired |                       6889|₹18                            |0.1%                           |
+|weighted residence repaired   |                       6837|₹-238                          |-1.0%                          |
+|weighted all repairs          |                       6992|₹103                           |0.4%                           |
 
 The supplied comparisons use the first coefficient draw; the other versions use fitted point estimates. They are not a distribution of preference uncertainty. Each row refers to women initially matched within caste and married in both allocations under that version.
 
-The displayed ranges reflect **missing-income imputation uncertainty with preferences, people, and allocations fixed**. They are not full confidence intervals for the economic cost of caste: they exclude uncertainty in preference coefficients, market composition, and the matching assumptions. The small net averages coexist with much larger offsetting increases and decreases. For the initially same-caste group, average gains are ₹11,772 per woman and losses ₹11,544, with zeros included for women on the other side of each calculation. Income is only one spouse attribute, so a lower-income counterfactual husband is not proof that relaxing caste makes a family worse off overall.
+The displayed ranges reflect **missing-income imputation uncertainty with preferences, people, and allocations fixed**. They are not full confidence intervals for the economic cost of caste: they exclude uncertainty in preference coefficients, market composition, and the matching assumptions. The small net averages coexist with much larger offsetting increases and decreases. For the initially same-caste group, average gains are ₹11,782 per woman and losses ₹11,678, with zeros included for women on the other side of each calculation. Income is only one spouse attribute, so a lower-income counterfactual husband is not proof that relaxing caste makes a family worse off overall.
 
 The data do not reveal a family's actual counterfactual spouse. These calculations maintain the paper's matching framework and treat the imputed incomes as outcomes for saved allocations; they do not feed newly imputed earnings back into search preferences. Everyone's caste terms are removed together. Thus they describe an equilibrium comparison, not how much a single family could obtain by unilaterally relaxing its caste requirement.
 

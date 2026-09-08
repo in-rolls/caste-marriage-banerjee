@@ -100,6 +100,16 @@ Consequently, these values cannot replace the published 93% versus 69% compariso
 
 Run `make simulation` for the default first draw and `make simulation-test` for the independent tests. Set `SIMULATION_DRAWS=1,2,3` to run a specified set of draws; outputs describe only that set. `make simulation-report` rebuilds summaries and this note from saved allocations.
 
+## Recovering interview identities
+
+The supplied `allads_AEJ.dta` provides a partial replacement for the missing `id_mailbox` bridge. It contains original ad identifiers and interview `SI` codes. The new [crosswalk script](../src/simulation_interview_crosswalk.R) links those identifiers to the four identifier columns in the Matlab input matrices and checks agreement on six attributes: family origin, residence, age, broad caste rank, height, and education.
+
+Identifiers containing three slash-separated numeric components map to the first three Matlab identifier columns; a letter suffix corresponds to a fourth-component indicator. Empty identifiers use `SI` followed by three zeros. The script also checks that the prospective spouse's sex agrees with the interview advertisement. This is an exact identifier link with verification, not a match based on similar characteristics.
+
+The conservative result contains 736 distinct interviewed advertisers: 259 men and 477 women. Use only `status == "verified_identifier_and_attributes"` in [the crosswalk](../output/simulation_interview_crosswalk.csv). This recovers only part of the 783-advertiser interview sample and cannot by itself reproduce the paper's exact Table 6 sample.
+
+Four simulation rows have original identifiers associated with two different interview `SI` codes; these are marked `ambiguous_interview_identifier`, with `SI` left missing. Nine additional rows link to an interview `SI` but disagree with the interview advertisement's sex. They are marked `interview_sex_disagreement`. All linked rows agree on the six original-allads versus Matlab attributes, so attribute similarity cannot resolve these remaining identity problems. The script retains these failures in the output rather than silently assigning identities. [Counts](../output/simulation_interview_crosswalk_counts.csv).
+
 ## Using the published regression weights
 
 ```{r weighting_values, include=FALSE}
@@ -146,6 +156,6 @@ if ("Same residence" %in% names(exhibit)) exhibit$`Same residence` <- pct(exhibi
 knitr::kable(exhibit, digits = 4, row.names = FALSE)
 ```
 
-The paired attribute changes are descriptive reallocations under the fitted model. In particular, when all men are matched and their attributes are fixed, overall mean husband income or education is unchanged by reassignment. That accounting property limits **our aggregate-mean probe**; it does not make the paper's conditional caste-cost regressions in Table 8 tautological. Changes in partners and their observed attributes also do not establish welfare losses. Table 8's conditional cost estimates and their full uncertainty have not been reproduced in this extension.
+The paired attribute changes are descriptive reallocations under the fitted model. In particular, when all men are matched and their attributes are fixed, overall mean husband income or education is unchanged by reassignment. That accounting property limits **our aggregate-mean probe**; it does not make the paper's conditional caste-cost regressions in Table 8 tautological. Changes in partners and their observed attributes also do not establish welfare losses. The [cost audit](simulation-costs.md) executes the conditional regressions on all 500 original/corrected allocations and reports unidentified coefficients. Exact published reporting variants and full uncertainty under weighted preferences remain unverified.
 
 Run `make simulation-weighting` for the weighted/unweighted point-estimate comparison and `make simulation-handoff` for the additional confirmed-feature comparison. These targets preserve the original archive and save allocations separately from the initial coefficient-draw sensitivity.

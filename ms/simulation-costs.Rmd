@@ -12,14 +12,14 @@ Under a missing-at-random assumption, the corrected, weighted matching model imp
 ```{r mar_values, include=FALSE}
 mar_summary <- read.csv("output/simulation_income_mar_summary.csv")
 mar_provenance <- read.csv("output/simulation_income_mar_provenance.csv")
-mar_main <- subset(mar_summary, comparison == "weighted_all_repairs" & specification == "pmm_log_income")
+mar_main <- subset(mar_summary, comparison == "weighted_all_repairs" & specification == "pmm_income_levels")
 mar_all <- subset(mar_main, population == "all_common_women")
 mar_same <- subset(mar_main, population == "same_caste_before")
-mar_levels <- subset(mar_summary, comparison == "weighted_all_repairs" & specification == "pmm_income_levels" & population == "same_caste_before")
+mar_log <- subset(mar_summary, comparison == "weighted_all_repairs" & specification == "pmm_log_income" & population == "same_caste_before")
 mar_money <- function(x) format(round(x), big.mark = ",", trim = TRUE)
 ```
 
-For women assigned a same-caste husband in the corrected, weighted baseline, removing caste preferences raises husband income by **₹`r mar_money(mar_same$net_income_gain)` per month on average**, about **`r sprintf("%.1f", 100 * mar_same$foregone_income_share)`%** of the counterfactual income. The income-level sensitivity gives ₹`r mar_money(mar_levels$net_income_gain)` per month. Across all women married in both allocations, the corresponding log-income imputation estimate is ₹`r mar_money(mar_all$net_income_gain)` per month: essentially no net gain. These numbers are much smaller than the roughly one-third shortlisting trade-off. That is economically coherent: a family may value caste strongly yet find a same-caste partner without giving up much income.
+For women assigned a same-caste husband in the corrected, weighted baseline, removing caste preferences raises husband income by **₹`r mar_money(mar_same$net_income_gain)` per month on average**, about **`r sprintf("%.1f", 100 * mar_same$foregone_income_share)`%** of the counterfactual income. The main imputation predicts income in rupees. Using log income to select comparable donors gives ₹`r mar_money(mar_log$net_income_gain)` per month as a sensitivity check; that result is also an arithmetic income difference in rupees. Across all women married in both allocations, the main estimate is ₹`r mar_money(mar_all$net_income_gain)` per month: essentially no net gain. These numbers are much smaller than the roughly one-third shortlisting trade-off. That is economically coherent: a family may value caste strongly yet find a same-caste partner without giving up much income.
 
 The assumption is that income reporting is independent of income conditional on the observed predictor profile. We use `r mar_provenance$observed_incomes` reported male incomes to impute the `r mar_provenance$imputed_incomes` missing incomes, using education category, age and age squared, an occupation-based log-wage proxy, caste, residence, family origin, and recorded missing-profile categories. Predictive mean matching uses five observed-income donors and `r mar_provenance$imputations_per_specification` imputations per specification. We compare log-income and income-level prediction. The imputation model has full column rank in the observed-income sample. A man's imputed income is identical wherever he appears across the two marriage allocations; recorded incomes are preserved. Only income is imputed, and all predictor entries are observed codes, so one iteration suffices for each independent imputation.
 
@@ -34,10 +34,10 @@ names(exhibit) <- c("Imputation", "Women", "N", "Mean income gain without caste"
 knitr::kable(exhibit, row.names = FALSE)
 ```
 
-The small mean is not confined to the final coding version. Applying the same log-income MAR procedure to the five saved sensitivity comparisons gives:
+The small mean is not confined to the final coding version. Applying the same income-level MAR procedure to the five saved sensitivity comparisons gives:
 
 ```{r mar_coding_sensitivity}
-exhibit <- subset(mar_summary, specification == "pmm_log_income" & population == "same_caste_before")
+exhibit <- subset(mar_summary, specification == "pmm_income_levels" & population == "same_caste_before")
 exhibit <- exhibit[, c("comparison", "n", "net_income_gain", "foregone_income_share")]
 exhibit$comparison <- gsub("_", " ", exhibit$comparison)
 exhibit$net_income_gain <- paste0("₹", mar_money(exhibit$net_income_gain))

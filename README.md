@@ -10,6 +10,13 @@ The central same-caste association reproduces and survives several inference and
 The larger claim that caste preferences impose little economic cost relies on a matching model whose
 fit, code, and interpretation need separate scrutiny. [Read the review](ms/review.md).
 
+The paper makes three linked claims (printed pp. 35–36): families strongly prefer their own caste;
+that preference can cost little if economically similar partners are available within each caste;
+and this low cost can help caste preferences persist as the economy grows. The first claim comes
+from letter shortlisting, the second from a matching model, and the third extends the model’s
+argument beyond the observed marriage decisions. The article and appendix are available locally
+as `sources/paper.pdf` and `sources/appendix.pdf`; these reading copies are excluded from Git.
+
 ![Same-caste differences in consideration with advertiser-clustered intervals](figs/same-caste.png)
 
 The respondents are mostly Bengali upper-middle-class families advertising for spouses in
@@ -30,10 +37,10 @@ which letters to pursue, not observations of a spouse knowingly accepting a mone
 | Are there concrete code problems? | The male preference calculation miscoded same residence for 1,678,947 candidate pairs; the quality index drops education terms through an operator-precedence error. An independent review also confirms caste-rank and missing-attribute feature errors. 250 paired full-market draws quantify the joint preference-feature repairs, alongside ten earlier selected allocations. The corrections leave substantial predicted endogamy. [Simulation audit](ms/simulation-audit.md). |
 
 **How much income does keeping caste cost in the matching model?** Under missing at random, the corrected,
-weighted point-estimate model implies about **₹229 per month (1.0%)**
+weighted point-estimate model implies about **₹103 per month (0.4%)**
 foregone among women initially assigned a same-caste husband. This is much smaller than the shortlisting trade-off,
 consistent with strong preferences but small average income concessions in the model. The analysis uses 500 income
-imputations and an income-level sensitivity check. It does not identify actual household profit, and its imputation
+imputations of income in rupees, with log-income prediction as a sensitivity check. It does not identify actual household profit, and its imputation
 ranges do not include preference or matching-model uncertainty. [Income-sacrifice analysis](ms/simulation-costs.md).
 
 The general 49% income premium corresponds to accepting about 33% less income for the same-caste
@@ -61,6 +68,13 @@ claims, not a complete rerun of every published table. The R coding sensitivity 
 Bayesian Figure 1, and all auxiliary appendix regressions remain unverified. The simplified bride-income point estimates now reproduce, but some income predictions
 depend on restrictions the earnings data cannot identify; this specification is not used for reported WTP. See [coverage and limitations](ms/review.md).
 
+**Remaining work:** propagate weighted preference uncertainty through matching and the income
+counterfactual, after specifying how to handle terms unidentified in some resamples; resolve the
+remaining interview identities and check native Matlab scoring, reporting variants, and search
+frictions. Bayesian Figure 1 and auxiliary appendix regressions also remain unverified. Actual
+household financial losses and a causal separation of caste taste from correlated compatibility
+require additional evidence; more simulations alone cannot identify them.
+
 The original [114406 replication archive](https://www.openicpsr.org/openicpsr/project/114406/version/V1/view)
 contains two reverse-search datasets larger than GitHub's individual-file limit. They remain in the
 local extraction but are excluded from Git; the implemented pipeline does not require them.
@@ -73,7 +87,7 @@ The [tradeoff interpretation](ms/tradeoff-interpretation.md) translates the pref
 
 The full paired coding comparison, selected income counterfactuals, and their limits are documented in the [simulation audit](ms/simulation-audit.md). The [independent feature review](ms/simulation-feature-review.md) traces the confirmed handoff errors to the original programs. `make simulation`, `make simulation-weighting`, and the additional targets documented in that audit reproduce the separate simulation comparisons; `make test` runs the local validation suite.
 
-The [groom-income support check](ms/groom-income-support.md) finds no corresponding normalization problem in the model behind the 49% premium. The [bride-income audit](ms/bride-income-audit.md) resolves the numerical discrepancy and demonstrates the unsupported income extrapolations. The [conditional matching-cost audit](ms/simulation-costs.md) reconstructs the cost regressions on selected saved allocations and reports sparse or unidentified comparisons. [Independent agy audit and adjudication](ms/independent-audit.md).
+The [groom-income support check](ms/groom-income-support.md) finds no corresponding normalization problem in the model behind the 49% premium. The [bride-income audit](ms/bride-income-audit.md) resolves the numerical discrepancy and demonstrates the unsupported income extrapolations. The [conditional matching-cost audit](ms/simulation-costs.md) reconstructs the cost regressions on all 500 original/corrected allocations and earlier selected comparisons and reports sparse or unidentified comparisons. [Independent agy audit and adjudication](ms/independent-audit.md).
 
 For the full paired sensitivity across the first 250 supplied coefficient draws, run `Rscript src/simulation_batch.R --workers=2 --draws=1:250 --scenarios=original,feature_corrected`. The runner saves a separate checkpoint for every validated allocation under `output/simulation_runs/`, resumes matching checkpoints, and stops if its input or source hashes change. This uses the original unweighted coefficient draws. Its manifest and status files distinguish completed work from a partial run; it does not reproduce a weighted coefficient bootstrap or certify native Matlab equivalence.
 
