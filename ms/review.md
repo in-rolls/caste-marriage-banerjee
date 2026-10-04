@@ -16,12 +16,12 @@ The regressions include an own-caste indicator, the prospective partner's broad 
 
 The authors describe women's preferences as primarily horizontal and find some tendency for men to marry upward when marrying out of caste (p. 55). The main same-caste coefficients are 13.17 and 17.07 percentage points. The models with a separate same-broad-caste indicator retain coefficients of 13.47 and 17.69 points. These facts support an endogamy association beyond a simple rank ordering. They do not identify a psychological taste separately from beliefs about compatibility, family acceptance, economic security, or other unobserved attributes signaled by caste. Conditioning on reported education and income does not make those alternatives disappear. Nor does an insignificant rank slope establish that rank is irrelevant.
 
-The authors explicitly investigate this objection in “What Does Caste Signal?” (pp. 59–60). They report that cultural controls, including singing ability, and restricting the sample to the four highest castes do not eliminate the association. Footnote 18 also reports similar results with family-culture, wealth and astrological controls. They acknowledge that unobserved attributes shared within narrow castes remain inseparable from the attraction of same-caste matching. Our current audit has not reproduced all those additional specifications. The concern is therefore the remaining interpretation: narrow-caste customs or expected family acceptance can vary within broad ranks, so a narrow-caste coefficient larger than the broad-caste coefficient does not isolate a preference for the label itself. No diet measure was found in the supplied variable names and labels. This leaves a possible explanation, not an established explanation of the estimated effect.
+The authors investigate this interpretation in “What Does Caste Signal?” (pp. 59–60). They report that cultural controls, including singing ability, and restricting the sample to the four highest castes do not eliminate the association. Footnote 18 also reports similar results with family-culture, wealth and astrological controls. They acknowledge that unobserved attributes shared within narrow castes remain inseparable from the attraction of same-caste matching. Our current audit has not reproduced all those additional specifications. The concern is therefore the remaining interpretation: narrow-caste customs or expected family acceptance can vary within broad ranks, so a narrow-caste coefficient larger than the broad-caste coefficient does not isolate a preference for the label itself. No diet measure was found in the supplied variable names and labels. This leaves a possible explanation, not an established explanation of the estimated effect.
 
 The authors also compare observed attributes and eventual spouse quality for people who write outside their caste (Table 5). That addresses observable selection and some implications of adverse signaling; it does not directly observe every private compatibility trait. Strong endogamy is better supported than a quantified measure of pure prejudice. The [tradeoff interpretation](tradeoff-interpretation.md) explains the money and education equivalents, the families represented, and the distinction between willingness to sacrifice and sacrifice in realized matches.
 
 
-**The principal association survives the checks**
+**Shortlisting estimates across specifications**
 
 All 28 displayed caste coefficients checked across Tables 3(1), 3(3), 4(1), and 4(3) reproduce to the printed precision. Twenty-seven of their 28 standard errors also do; the remaining difference is below 0.0001. The two conditional-logit same-caste coefficients reproduce, although separation makes some caste-preference interactions poorly determined. The conditional logit is unweighted in the supplied code even though the table notes describe weighted regressions. [Published comparison](../output/published_comparison.csv).
 
@@ -29,7 +29,7 @@ Letters from one advertiser share a decision maker and a shortlist, so the infer
 
 Unweighted estimation, equal total weight per advertiser, restricting to known caste, and trimming weights at their 99th percentile preserve the main same-caste association. Bonferroni adjustment across 14 selected caste coefficients in the two baseline models also preserves it. This family is explicitly defined; it is not a correction for every coefficient in the article. Advertisers were sampled, but caste was not randomly assigned, so no artificial caste-label randomization test is supplied. [Sensitivity results](../output/robustness.csv), [multiplicity](../output/multiplicity.csv), [deletions](../output/leave_one_advertiser_out.csv).
 
-One apparent coding defect was a rejected substantive criticism. A same-caste rule uses an impossible conjunction where a disjunction appears intended. Correcting it changes zero pairs in either main regression sample. The typo cannot explain these results. [Affected-pair check](../output/caste_typo_impact.csv).
+A same-caste rule uses an impossible conjunction where a disjunction appears intended. Correcting it changes zero pairs in either main regression sample. The typo cannot explain these results. [Affected-pair check](../output/caste_typo_impact.csv).
 
 **What would they give up?**
 
@@ -39,7 +39,7 @@ That coefficient ratio isolates the same-caste term in the reference category. I
 
 These are conversions of a linear shortlisting regression, not cash payments, realized earnings sacrifices, or experimentally identified willingness to pay. Predicted income is built from education and occupation; its coefficient can reflect attributes associated with those predictors rather than the effect of offering extra cash. The estimates concern families' recorded consideration of the letters they received, with sample weights correcting the deliberate sampling of considered and unconsidered letters. They do not reveal choices over every possible spouse.
 
-**The structural conclusions need a separate audit**
+**Matching-model implementation**
 
 The matching simulation is not simply the headline weighted regressions carried forward. The supplied bootstrap code omits their weights. Its mean same-caste coefficients are 0.1570 and 0.2022, close to the unweighted regressions' 0.1589 and 0.1986, rather than the weighted 0.1317 and 0.1707. The archive supplies 1,000 coefficient draws; the main Matlab loop uses the first 250. This changes the estimated preferences entering the equilibrium exercise. [Coefficient handoff](../output/bootstrap_handoff.csv).
 
@@ -51,7 +51,7 @@ The native workflow also has incomplete handoffs. The correlation scripts requir
 
 **Does the model fit marriages and bound their costs?**
 
-Published Table 6 predicts 93% same-caste marriages without search frictions, with a 2.5–97.5 percentile range of 83–99%; the observed figure is 69%, with a range of 64–75%. Predicted height correlation is 0.86 versus 0.39 observed, and family-origin correlation is 1.00 versus 0.51. These are material discrepancies in matching patterns. The paper acknowledges overprediction of endogamy and rejection of a joint fit test; the criticism is how much confidence to place in counterfactual costs given that acknowledged fit, not an allegation that the authors conceal it.
+Published Table 6 predicts 93% same-caste marriages without search frictions, with a 2.5–97.5 percentile range of 83–99%; the observed figure is 69%, with a range of 64–75%. Predicted height correlation is 0.86 versus 0.39 observed, and family-origin correlation is 1.00 versus 0.51. These are material discrepancies in matching patterns. The paper acknowledges overprediction of endogamy and rejection of a joint fit test; the counterfactual cost estimates need to be interpreted alongside that acknowledged fit.
 
 Counting the displayed no-friction Table 6 values gives 12 of 21 observed point estimates inside the simulation intervals and 14 overlapping intervals. This is a check of rounded published numbers, not an independent simulation. The text reports 14 and 15. The substantive discrepancies above are more consequential than this counting disagreement. [Transcribed fit check](../output/published_matching_fit.csv).
 
@@ -63,9 +63,9 @@ If caste signals unmeasured compatibility, setting caste coefficients to zero al
 
 Nor does a model of this selected marriage market establish that economic growth will fail to weaken caste or that caste has little aggregate economic cost. Those claims involve changing preferences, other marriage channels, labor markets, and other populations outside the demonstrated comparison.
 
-**Coverage and the twelve review moves**
+**Analysis coverage**
 
-| Review move | Finding or limit |
+| Analysis | Finding or limit |
 |---|---|
 | Index decomposition | Education terms disappear from the supplied quality calculation through an operator-precedence error; affected people are counted. |
 | Baselines and gaps | Separate same-caste shortlisting advantages from caste-specific comparisons and the observed/simulated endogamy gap. |
@@ -73,7 +73,7 @@ Nor does a model of this selected marriage market establish that economic growth
 | Mechanism | Own-caste association is measured; taste, beliefs, family acceptance, and other caste signals are not separately identified. |
 | Implementation | Weighting changes at the simulation handoff; a residence feature uses the wrong columns; native summary handoffs are incomplete. |
 | ITT to TOT | Inapplicable: this is not an encouragement experiment with an identified compliance rate. |
-| Magnitude benchmarks | Reconstruct within-paper income and rank contrasts. No new web search was conducted after the user prohibited it. These conversions are not external causal benchmarks. |
+| Magnitude benchmarks | Reconstruct within-paper income and rank contrasts. External magnitude comparisons were not added in this analysis. These conversions are not external causal benchmarks. |
 | Statistical fragility | Advertiser clustering, wild bootstrap, all advertiser deletions, weight changes, and a defined multiplicity family preserve the principal association. |
 | Stated versus revealed | Planned pursuit of letters, usually reported by relatives, is distinct from completed marriage and cash sacrifice. |
 | Companion evidence | The supplied appendix qualifies the fit and shows alternative matching assumptions; no additional outside-paper search is claimed. |
@@ -115,7 +115,7 @@ The headline shortlisting result is stable across the May 2009 NBER draft, Novem
 
 These are checks of rounded displayed values, with endpoints counted as inside; they do not recover the authors' unrounded simulation files. The [row-level comparison](../output/paper_version_fit_checks.csv) records every inclusion decision; `make paper-versions` reproduces it. The counts therefore identify a reporting discrepancy, not a new statistical rejection. More substantively, both drafts put simulated endogamy between 86.82% and 97.32%, against 69.37% observed. The final range is 83%–99%, against 69% observed. The misfit was already present in the drafts, and the authors acknowledge it and a rejected joint fit test. The 2009 abstract's favorable characterization of a relatively frictionless market deserves that qualification; the final abstract drops that explicit fit claim.
 
-**A contradictory sentence survives all three versions.** The simulation discussion says age, height, and education correlations increase as caste preferences weaken, then says in parentheses that they are highest when caste matching is compulsory. Final Table 7 supports the first direction: the mean education correlation is 0.41 with compulsory same-caste matching and 0.47 with caste ignored; age correlations are 0.87 versus 0.93 and height correlations 0.85 versus 0.93. The parenthetical direction is reversed. This wording error occurs in 2009 p. 32, 2010 p. 24, and final p. 68. It does not reverse the paper's central claim of strong caste preferences and relatively small changes in other matching characteristics.
+**The same directional wording discrepancy appears in all three versions.** The simulation discussion says age, height, and education correlations increase as caste preferences weaken, then says in parentheses that they are highest when caste matching is compulsory. Final Table 7 supports the first direction: the mean education correlation is 0.41 with compulsory same-caste matching and 0.47 with caste ignored; age correlations are 0.87 versus 0.93 and height correlations 0.85 versus 0.93. The parenthetical direction is reversed. This wording error occurs in 2009 p. 32, 2010 p. 24, and final p. 68. It does not reverse the paper's central claim of strong caste preferences and relatively small changes in other matching characteristics.
 
 The version comparison strengthens the need to qualify the model's fit and its uncertain cost estimates. It does not reveal a reversal of the main shortlisting finding or establish why every simulation number changed. An exact explanation of those changes would require the code and intermediate outputs that produced each historical version.
 
